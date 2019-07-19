@@ -46,14 +46,23 @@ def launch_request_handler(handler_input):
 
 @sb.request_handler(can_handle_func = lambda input:
                     is_intent_name("EnterDoorIntent")(input))
-def movement_handler(handler_input):
+def enter_door_handler(handler_input):
     """
     Handler for processing the enter door command
     """
     # type: (HandlerInput) -> Response
 
-    # store the value of DoorNumber slot passed alongside the intent
-    door_number = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value) 
+    # TODO: Handle the door order intent as well
+
+    # the value of DoorNumber slot passed alongside the intent
+    door_number = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value)
+
+    # retireve Alexa state variables
+    state_variables = handler_input.attributes_manager.persistent_attributes
+
+    # store the door number in the state variables and save to Alexa session
+    state_variables['door'] = door_number 
+    handler_input.attributes_manager.session_attributes = state_variables
 
     speech_text = "You asked to go through door number " + door_number
 
@@ -63,16 +72,18 @@ def movement_handler(handler_input):
 
     return handler_input.response_builder.response
 
-@sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
-def help_intent_handler(handler_input):
+@sb.request_handler(can_handle_func=is_intent_name("MemoryCheckIntent"))
+def memory_check_handler(handler_input):
     """
-    Handler for checking what has been succes
+    Handler for checking what has been successfully saved into temp memory
     """
     # type: (HandlerInput) -> Response
 
-    # TODO: REMOVE AS ONLY USED FOR TESTING
+    # TODO: REMOVE AS ONLY USED FOR TESTING (Or maybe find away to lock to developer mode only???)
 
-    speech_text = "Default response"
+    state_variables = handler_input.attributes_manager.session_attributes
+
+    speech_text = "The last door you tried to go through is " + state_variables['door']
     reprompt = "Default reprompt"
 
     handler_input.response_builder.speak(speech_text).ask(reprompt)
