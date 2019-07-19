@@ -13,7 +13,7 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 
-SKILL_NAME = 'Language Of Love'
+SKILL_NAME = 'The Whisperer in Darkness'
 sb = StandardSkillBuilder(table_name="The-Whisperer-In-Darkness", auto_create_table=True)
 
 logger = logging.getLogger(__name__)
@@ -34,13 +34,70 @@ def launch_request_handler(handler_input):
  
     speech_text = "Welcome to the whisperer in darkness"
 
-    handler_input.response_builder.speak(speech_text).ask()
+    reprompt = "Repeat yourself"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
 
     return handler_input.response_builder.response
 
-#
-# Built-In Intents 
-#
+# Custom Intents Begin 
+
+# region
+
+@sb.request_handler(can_handle_func = lambda input:
+                    is_intent_name("EnterDoorIntent")(input))
+def movement_handler(handler_input):
+    """
+    Handler for processing the enter door command
+    """
+    # type: (HandlerInput) -> Response
+
+    # store the value of DoorNumber slot passed alongside the intent
+    door_number = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value) 
+
+    speech_text = "You asked to go through door number " + door_number
+
+    reprompt = "Repeat yourself"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+
+    return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
+def help_intent_handler(handler_input):
+    """
+    Handler for checking what has been succes
+    """
+    # type: (HandlerInput) -> Response
+
+    # TODO: REMOVE AS ONLY USED FOR TESTING
+
+    speech_text = "Default response"
+    reprompt = "Default reprompt"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    return handler_input.response_builder.response
+
+
+# endregion 
+
+# Custom Intents End 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Built-In Intents Begin
 
 # region
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
@@ -110,7 +167,7 @@ def fallback_handler(handler_input):
 
 # endregion
 
-
+# Built-In Intents End
 
 
 
