@@ -12,12 +12,15 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
+from the_whisperer_in_darkness import TheWhispererInDarkness 
 
 SKILL_NAME = 'The Whisperer in Darkness'
 sb = StandardSkillBuilder(table_name="The-Whisperer-In-Darkness", auto_create_table=True)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+whisperer = TheWhispererInDarkness()
 
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
@@ -31,10 +34,14 @@ def launch_request_handler(handler_input):
         state_variables['playing'] = True
 
     handler_input.attributes_manager.session_attributes = state_variables
- 
-    speech_text = "Welcome to the whisperer in darkness"
 
-    reprompt = "Repeat yourself"
+    whisperer.handle_launch()
+
+    response = whisperer.whisper_repsonse
+ 
+    speech_text = response.SpeechText
+
+    reprompt = response.Reprompt
 
     handler_input.response_builder.speak(speech_text).ask(reprompt)
 
