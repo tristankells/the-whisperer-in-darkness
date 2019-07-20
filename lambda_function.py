@@ -84,10 +84,10 @@ def enter_door_handler(handler_input):
     response = TheWhispererInDarkness.enter_door(door, state_variables)   
 
     # save state variables
-    handler_input.attributes_manager.session_attributes = response["state_variables"]
+    handler_input.attributes_manager.session_attributes = response.state_variables
 
     # save speech text
-    speech_text = response["speech_text"]
+    speech_text = response.speech_text
 
     reprompt = "Repeat yourself"
 
@@ -137,10 +137,18 @@ def investigate_chains_handler(handler_input):
     Handler for investigating the chains around the book in the door on the right
     """
     # type: (HandlerInput) -> Response
-    room = StateVariables.get_state(handler_input, "Room")
-    speech_text = TheWhispererInDarkness.investigate_chains(room)
+    state_variables = handler_input.attributes_manager.session_attributes
 
-    reprompt = "Default reprompt"
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.investigate_chains( state_variables)   
+
+    # save state variables
+    handler_input.attributes_manager.session_attributes = response.state_variables
+
+    # save speech text
+    speech_text = response.speech_text
+
+    reprompt = "Repeat yourself"
 
     handler_input.response_builder.speak(speech_text).ask(reprompt)
     return handler_input.response_builder.response
@@ -151,11 +159,57 @@ def use_key_intent(handler_input):
     Handler for using the key to unlock the chains around the screaming book
     """
     # type: (HandlerInput) -> Response
-    room = StateVariables.get_state(handler_input, "Room")
-    has_key = StateVariables.get_state(handler_input, "HasKey")
-    speech_text = TheWhispererInDarkness.use_key(room, has_key)
 
-    reprompt = "Default reprompt"
+    state_variables = handler_input.attributes_manager.session_attributes
+
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.use_key( state_variables)   
+
+    # save state variables
+    handler_input.attributes_manager.session_attributes = response.state_variables
+
+    # save speech text
+    speech_text = response.speech_text
+
+    reprompt = "Repeat yourself"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func=is_intent_name("OpenBookIntent"))
+def open_book_intent(handler_input):
+
+    state_variables = handler_input.attributes_manager.session_attributes
+
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.open_book(state_variables)   
+
+    # save state variables
+    handler_input.attributes_manager.session_attributes = response.state_variables
+
+    # save speech text
+    speech_text = response.speech_text
+
+    reprompt = "Repeat yourself"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func=is_intent_name("ThrowBookIntent"))
+def throw_book_intent(handler_input):
+
+    state_variables = handler_input.attributes_manager.session_attributes
+
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.throw_book(state_variables)   
+
+    # save state variables
+    handler_input.attributes_manager.session_attributes = response.state_variables
+
+    # save speech text
+    speech_text = response.speech_text
+
+    reprompt = "Repeat yourself"
 
     handler_input.response_builder.speak(speech_text).ask(reprompt)
     return handler_input.response_builder.response
