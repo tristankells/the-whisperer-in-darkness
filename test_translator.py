@@ -1,4 +1,5 @@
 from response import Response
+from audio import Audio
 
 class Translator() :
     """
@@ -6,6 +7,8 @@ class Translator() :
     debug focussed test phrases
     """
     Launch = Response(
-        "Welcome to the whisperer in darkness"
+        Audio.Splat + " Welcome to the whisperer in darkness"
         ,"Launch Reprompt"
         )
+
+        
