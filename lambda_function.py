@@ -58,17 +58,19 @@ def enter_door_handler(handler_input):
 
     # the value of DoorNumber slot passed alongside the intent
 
-    
-    
-    door_number = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value)
+   
+    try :
+        door = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value)
+    except:
+        door = None     
 
-    if(door_number == None) :
-        door_order = Order[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
+    if(door == None) :
+        door = Order[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
 
 
-    StateVariables.set_state(handler_input, "door_number", door_number)
+    StateVariables.set_state(handler_input, "door", door)
 
-    speech_text = TheWhispererInDarkness.enter_door(door_number)   
+    speech_text = TheWhispererInDarkness.enter_door(door)   
 
     reprompt = "Repeat yourself"
 
