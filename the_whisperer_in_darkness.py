@@ -1,5 +1,6 @@
 from test_translator import Translator
 from slot_types import Door
+from slot_types import Room
 
 class TheWhispererInDarkness :
 
@@ -35,6 +36,15 @@ class TheWhispererInDarkness :
     @staticmethod
     def exposition(parameter_list):
         pass
+
+    @staticmethod
+    def investigate_chains(room):
+        if(room != Room.mirror) :
+           return Translator.ChainsError
+        return Translator.InvestigateChains
+
+        
+
 
 
 
