@@ -16,7 +16,7 @@ class StateVariables:
         # retireve Alexa state variables
         state_variables = handler_input.attributes_manager.persistent_attributes
 
-        print type(state_variables)
+        print(type(state_variables))
 
         # make sure that the key is a string
         key = str(key)
