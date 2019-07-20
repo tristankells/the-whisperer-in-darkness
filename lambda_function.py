@@ -35,6 +35,10 @@ def launch_request_handler(handler_input):
     if not state_variables:
         state_variables['Room'] = Room.lobby
         state_variables['HasKey'] = False
+        state_variables['ChainsInvestigated'] = False
+        state_variables['BookLocked'] = True
+        state_variables['MirrorBroken'] = False
+        state_variables['HasBook'] = False
 
     handler_input.attributes_manager.session_attributes = state_variables
 

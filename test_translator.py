@@ -20,6 +20,8 @@ class Translator() :
 
     InvestigateChains = "The chains seemed tightly bound. You see a lock"
 
+    AlreadyInvestigatedChains = "Not much more to see here "
+
     ChainsError = "Not the time to investigate chains"
 
     # Use Key Intent
@@ -32,11 +34,17 @@ class Translator() :
 
     # Open book room intent 
 
-    OpenBook = "You open the book. It screams at you"
+    OpenBookInMirrorRoom = "You open the book. It screams at you"
 
-    OpenBookError_ItsLocked = "The chains wrapped around it prevent you from opening the book"
+    OpenBookInLobby = "It breaks the mirror into a million piece "
+
+    OpenBook_ItsLocked = "The chains wrapped around it prevent you from opening the book"
 
     OpenBook_ThereNoBook = "I cant see no book"
+
+    OpenBookError = "Book error message"
+
+    OpenBook_NotNeeded = "Nothing more happens, except you increased descent in insanity"
 
     # Leave room intent 
 
@@ -48,5 +56,10 @@ class Translator() :
     ThrowBook = "You try to toss it, but you never seem to be able to muster the strength to get rid of it"
 
     ThrowBookError = "You try to throw it, but you dont have it"
+
+   # Generic errors
+    GenericError = "You tried that, but nothing happend"
+
+    DebugError = "THe logic is a bit off"
     
 
