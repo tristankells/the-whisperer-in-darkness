@@ -22,8 +22,6 @@ sb = StandardSkillBuilder(table_name="The-Whisperer-In-Darkness", auto_create_ta
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-whisperer = TheWhispererInDarkness()
-
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
 def launch_request_handler(handler_input):
@@ -37,13 +35,9 @@ def launch_request_handler(handler_input):
 
     handler_input.attributes_manager.session_attributes = state_variables
 
-    whisperer.handle_launch()
+    speech_text = TheWhispererInDarkness.handle_launch()
 
-    response = whisperer.whisper_repsonse
- 
-    speech_text = response.SpeechText
-
-    reprompt = response.Reprompt
+    reprompt = "Repeat yourself"
 
     handler_input.response_builder.speak(speech_text).ask(reprompt)
 
