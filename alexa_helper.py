@@ -41,26 +41,42 @@ class StateVariables:
         handler_input.attributes_manager.session_attributes = state_variables
 
     @staticmethod
-    def get_state(handler_input, keys):
+    def get_state(handler_input, key):
         """
-        get_state(key) -> str
-        get_state(keys) -> defaultdict
+        get_state(handler_input, key) -> str
+        get_state(handler_input, key) -> defaultdict #if key defines __iter__
         """
-        # retireve Alexa state variables
-        state_variables = handler_input.attributes_manager.persistent_attributes       
+        state_variables = handler_input.attributes_manager.persistent_attributes
 
         # if keys is just a single key (doesn't implement __iter__) use it as the key
         # else loop over each element in the list of keys
-        if not hasattr(keys, "__iter__"):
-           keys = str(keys)
-           return state_variables
+        if not hasattr(key, "__iter__"):
+            key = str(key)
+            try:
+                return state_variables[key]               
+            except KeyError:
+                return None
         else:            
             # create a dictionary to return
             values = defaultdict()
-            for key in map(str, keys):
+            for key in map(str, key):
                 try:
                     values[key] = state_variables[key]
                 except KeyError:
                     values[key] = None
             return values
         
+
+class Slots:
+    @staticmethod
+    def get_slot(handler_input, key):
+        """
+        get_slot(handler_input, key) -> str
+        """
+        state_variables = handler_input.attributes_manager.persistent_attributes
+        
+        key = str(key)
+        try:
+            return state_variables[key]               
+        except KeyError:
+            return None
