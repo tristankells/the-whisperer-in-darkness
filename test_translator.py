@@ -62,4 +62,8 @@ class Translator() :
 
     DebugError = "THe logic is a bit off"
     
+    # Open chest intent
+    OpenChest = "You open the chest. Its fucking gross in there"
 
+    # Reach in chest intent
+    ReachInChest = "You reach through the grossness and grab a key"

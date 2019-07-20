@@ -135,6 +135,22 @@ class TheWhispererInDarkness :
         speech_text = Translator.ThrowBook
 
         return Response(speech_text, state_variables) 
+    
+    @staticmethod
+    def open_chest(state_variables) :
+        speech_text = None
+        #TODO : Insert code
+        speech_text = Translator.OpenChest
+
+        return Response(speech_text, state_variables) 
+
+    @staticmethod
+    def reach_in_chest(state_variables) :
+        speech_text = None
+        #TODO : Insert code
+        speech_text = Translator.ReachInChest
+
+        return Response(speech_text, state_variables) 
 
 
 

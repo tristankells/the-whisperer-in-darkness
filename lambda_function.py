@@ -230,6 +230,47 @@ def throw_book_intent(handler_input):
 
 
 
+@sb.request_handler(can_handle_func=is_intent_name("OpenChestIntent"))
+def open_chest_intent(handler_input):
+
+    state_variables = handler_input.attributes_manager.session_attributes
+
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.open_chest(state_variables)   
+
+    # save state variables
+    handler_input.attributes_manager.session_attributes = response.state_variables
+
+    # save speech text
+    speech_text = response.speech_text
+
+    reprompt = "Repeat yourself"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func=is_intent_name("ReachInChestIntent"))
+def reach_in_chest_intent(handler_input):
+
+    state_variables = handler_input.attributes_manager.session_attributes
+
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.reach_in_chest(state_variables)   
+
+    # save state variables
+    handler_input.attributes_manager.session_attributes = response.state_variables
+
+    # save speech text
+    speech_text = response.speech_text
+
+    reprompt = "Repeat yourself"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    return handler_input.response_builder.response
+
+
+
+
 # endregion 
 
 # Custom Intents End 
