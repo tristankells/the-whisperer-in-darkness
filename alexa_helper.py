@@ -5,6 +5,7 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
+from collections import defaultdict
 
 class StateVariables:
     STATE_HISTORY_ENABLED = True # useful for debugging
@@ -39,17 +40,23 @@ class StateVariables:
         handler_input.attributes_manager.session_attributes = state_variables
 
     @staticmethod
-    def get_non_null_state(handler_input, key):
-        #read out our key, if it's None raise an error.
-        value = StateVariables.get_state(handler_input, key)
-        if (value is None):
-            raise Exception("reading out variable '" + str(key) + "' returned None.") #TODO proper exception type
-        else:
-            return value
-
-    @staticmethod
-    def get_state(handler_input, key):
+    def get_state(handler_input, keys):
+        """
+        get_state(key) -> str
+        get_state(keys) -> defaultdict
+        """
         # retireve Alexa state variables
         state_variables = handler_input.attributes_manager.persistent_attributes       
-        #return the value at our key (or None if it doesn't exist)
-        return state_variables[str(key)]
+
+        # if keys is just a single key (doesn't implement __iter__) use it as the key
+        # else loop over each element in the list of keys
+        if not hasattr(keys, "__iter__"):
+            keys = str(keys)
+           return state_variables[]
+        else:            
+            # create a dictionary to return
+            values = defaultdict()
+            for key in map(str, keys):
+                values[key] = state_variables[)])
+            return values
+        

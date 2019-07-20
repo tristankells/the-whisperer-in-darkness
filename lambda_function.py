@@ -12,9 +12,10 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
-from the_whisperer_in_darkness import TheWhispererInDarkness 
-from slot_types import Order 
+from the_whisperer_in_darkness import TheWhispererInDarkness
+from slot_types import Order
 from alexa_helper import StateVariables
+from audio import Audio
 
 SKILL_NAME = 'The Whisperer in Darkness'
 sb = StandardSkillBuilder(table_name="The-Whisperer-In-Darkness", auto_create_table=True)
@@ -80,12 +81,26 @@ def enter_door_handler(handler_input):
     return handler_input.response_builder.response
 
 @sb.request_handler(can_handle_func = lambda input:
+                    is_intent_name("OctopusIntent")(input))
+def octopus_handler(handler_input):
+    """
+    Handler for processing OctopusIntent
+    """
+    StateVariables.set_state(handler_input, "Error", Audio.octopus_room_error_audio)
+    StateVariables.set_state(handler_input, "InOctopusRoom", True)
+
+
+@sb.request_handler(can_handle_func = lambda input:
                     is_intent_name("WardrobeIntent")(input))
 def wardrobe_handler(handler_input):
     """
     Handler for processing WardrobeIntent
     """
-    StateVariables.get_state(handler_input, "")
+    state_variables = handler_input.attributes_manager.persistent_attributes       
+
+    if (not state_variables["InOctopusRoom"]):
+        return state_variables["Error"]
+
     
 
 @sb.request_handler(can_handle_func=is_intent_name("MemoryCheckIntent"))
