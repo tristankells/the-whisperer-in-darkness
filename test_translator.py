@@ -57,13 +57,13 @@ class Translator() :
 
     ThrowBookError = "You try to throw it, but you dont have it"
 
-   # Generic errors
-    GenericError = "You tried that, but nothing happend"
-
-    DebugError = "THe logic is a bit off"
-    
     # Open chest intent
     OpenChest = "You open the chest. Its fucking gross in there"
 
     # Reach in chest intent
     ReachInChest = "You reach through the grossness and grab a key"
+
+    # Generic errors
+    GenericError = "You tried that, but nothing happend"
+
+    DebugError = "THe logic is a bit off"

@@ -134,13 +134,35 @@ class TheWhispererInDarkness :
         #TODO : Insert code
         speech_text = Translator.ThrowBook
 
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
+
         return Response(speech_text, state_variables) 
     
     @staticmethod
     def open_chest(state_variables) :
         speech_text = None
-        #TODO : Insert code
-        speech_text = Translator.OpenChest
+
+        #In the mirror room 
+        if(Room(state_variables["Room"]) == Room.mirror) :
+
+            #If the player does not already have the key
+            if(state_variables['ChestOpened'] == False) :
+                state_variables["ChestOpened"] = True
+                speech_text = Translator.OpenChest
+
+            #if the player already has the key
+            elif(state_variables['ChestOpened'] == True) :
+                speech_text = Translator.GenericError
+
+        # If the player is in any room but the mirror room
+        elif(Room(state_variables["Room"]) != Room.mirror) :
+            speech_text = Translator.GenericError
+
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
 
         return Response(speech_text, state_variables) 
 
@@ -149,6 +171,11 @@ class TheWhispererInDarkness :
         speech_text = None
         #TODO : Insert code
         speech_text = Translator.ReachInChest
+
+
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
 
         return Response(speech_text, state_variables) 
 
