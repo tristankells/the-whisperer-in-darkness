@@ -85,7 +85,7 @@ def wardrobe_handler(handler_input):
     """
     Handler for processing WardrobeIntent
     """
-    StateVariables.get_state
+    StateVariables.get_state(handler_input, "")
     
 
 @sb.request_handler(can_handle_func=is_intent_name("MemoryCheckIntent"))
