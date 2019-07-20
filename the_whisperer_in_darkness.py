@@ -31,7 +31,7 @@ class TheWhispererInDarkness :
         if(speech_text == None) : 
             speech_text = Translator.DoorError
 
-        return Response(speech_text, state_variables)
+        return Response(speech_text, state_variables = state_variables)
 
     @staticmethod
     def exposition(parameter_list):
@@ -46,7 +46,7 @@ class TheWhispererInDarkness :
         if(speech_text == None) :
             Translator.InvestigateChains
 
-        return Response(speech_text, state_variables)
+        return Response(speech_text, state_variables = state_variables)
 
     @staticmethod
     def use_key(state_variables):
@@ -59,14 +59,14 @@ class TheWhispererInDarkness :
         if(speech_text == None) :
             speech_text = Translator.UseKey
 
-        return Response(speech_text, state_variables) 
+        return Response(speech_text, state_variables = state_variables) 
 
     @staticmethod
     def open_book(state_variables):
         speech_text = None
         #TODO : Insert code
         speech_text = Translator.OpenBook
-        return Response(speech_text, state_variables) 
+        return Response(speech_text, state_variables = state_variables) 
 
     @staticmethod
     def leave_room(state_variables):
@@ -74,7 +74,7 @@ class TheWhispererInDarkness :
         #TODO : Insert code
         speech_text =  Translator.LeaveRoom
 
-        return Response(speech_text, state_variables)
+        return Response(speech_text, state_variables = state_variables)
 
     @staticmethod
     def throw_book(state_variables) :
@@ -82,7 +82,7 @@ class TheWhispererInDarkness :
         #TODO : Insert code
         speech_text = Translator.ThrowBook
 
-        return Response(speech_text, state_variables) 
+        return Response(speech_text, state_variables = state_variables) 
 
 
 
@@ -93,21 +93,25 @@ class TheWhispererInDarkness :
 
 class OctopusRoom :
 
+
+    @staticmethod
+    def octopus_old(state_variables, save_state_callback=None):
+        
+        if (not save_state_callback is None):
+            StateVariables.set_state_v2(state_variables, save_state_callback, "Error", Audio.octopus_room_error_audio)
+    
     @staticmethod
     def wardrobe(state_variables):
             
-        if (not state_variables["InOctopusRoom"]):
-            return state_variables["Error"]
+        if (not state_variables.get_state("InOctopusRoom")):
+            return state_variables.get_state("Error")
 
         if (state_variables["IsOctopusReleased"]):
             pass
 
         #TODO error
+
     
-    @staticmethod
-    def octopus(state_variables, save_state_callback=None):
-        
-        if (not save_state_callback is None):
-            StateVariables.set_state_v2(state_variables, save_state_callback, "Error", Audio.octopus_room_error_audio)
+    
         
         

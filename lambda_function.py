@@ -62,9 +62,7 @@ def enter_door_handler(handler_input):
     """
     # type: (HandlerInput) -> Response
 
-    # the value of DoorNumber slot passed alongside the intent
-
-   
+    # the value of DoorNumber slot passed alongside the intent   
     try :
         door = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value)
     except:
@@ -87,15 +85,7 @@ def enter_door_handler(handler_input):
     # reponse captured from game class. Contains speech text and transformed state variables.
     response = TheWhispererInDarkness.enter_door(door, state_variables)   
 
-    # save state variables
-    handler_input.attributes_manager.session_attributes = response.state_variables
-
-    # save speech text
-    speech_text = response.speech_text
-
-    reprompt = "Repeat yourself"
-
-    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    AlexaHelper.process_response(handler_input, response)
 
     return handler_input.response_builder.response
 
@@ -126,19 +116,22 @@ def octopus_handler(handler_input):
     
     state_variables = handler_input.attributes_manager.persistent_attributes 
 
-    OctopusRoom.octopus(state_variables, save_state_callback)
+    response = OctopusRoom.octopus_old(state_variables, save_state_callback)
+    
     StateVariables.set_state(handler_input, "InOctopusRoom", True)
 
-@sb.request_handler(can_handle_func = is_intent_name("WardrobeIntent"))
+@sb.request_handler(can_handle_func = is_intent_name("Octopus_WardrobeIntent"))
 def wardrobe_handler(handler_input):
     """
     Handler for processing WardrobeIntent
     """
     state_variables = handler_input.attributes_manager.persistent_attributes       
     
-    x = OctopusRoom.wardrobe(state_variables)
-
-    return x
+    response = OctopusRoom.wardrobe(state_variables)
+    
+    AlexaHelper.process_response(handler_input, response)
+    
+    return handler_input.response_builder.response
     
 
 @sb.request_handler(can_handle_func=is_intent_name("InvestigateChainsIntent"))
@@ -247,6 +240,25 @@ def throw_book_intent(handler_input):
 # Built-In Intents Begin
 
 # region
+
+@sb.request_handler(can_handle_func=is_intent_name("AMAZON.RepeatIntent"))
+def repeat_intent_handler(handler_input):
+    """
+    Handler for RepeatIntent
+    """
+    state_helper = AlexaHelper.get_state_helper(lambda: handler_input.attributes_manager.persistent_attributes)
+
+    previous_speech_text = state_helper.get_state("PreviousSpeechText")
+    previous_reprompt = state_helper.get_state("PreviousReprompt")
+
+    # TODO add audio snippet saying that this is a repeat of the previous speech
+
+    # don't call the helper to build the response since we don't want to override the PreviousSpeechText session attribute
+    handler_input.response_builder.speak(previous_speech_text).ask(previous_reprompt)
+
+    return handler_input.response_builder.response
+
+
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
 def help_intent_handler(handler_input):
     """
