@@ -14,6 +14,7 @@ from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness 
 from slot_types import Order 
+from alexa_helper import StateVariables
 
 SKILL_NAME = 'The Whisperer in Darkness'
 sb = StandardSkillBuilder(table_name="The-Whisperer-In-Darkness", auto_create_table=True)
@@ -69,12 +70,7 @@ def enter_door_handler(handler_input):
     if (door_number is None and door_order is not None):
         door_number = door_order.value
 
-    # retireve Alexa state variables
-    state_variables = handler_input.attributes_manager.persistent_attributes
-
-    # store the door number in the state variables and save to Alexa session
-    state_variables['door'] = door_number 
-    handler_input.attributes_manager.session_attributes = state_variables
+    StateVariables.set_state(handler_input, "door_number", door_number)
 
     speech_text = TheWhispererInDarkness.enter_door(door_number)
     
