@@ -52,7 +52,7 @@ class StateVariables:
         # if keys is just a single key (doesn't implement __iter__) use it as the key
         # else loop over each element in the list of keys
         if not hasattr(keys, "__iter__"):
-            keys = str(keys)
+           keys = str(keys)
            return state_variables
         else:            
             # create a dictionary to return
