@@ -1,7 +1,5 @@
 import enum
 
-class Order(enum.Enum):
+class Door(enum.Enum):
     first = 1
     second = 2
-    third = 3
-    fourth = 4

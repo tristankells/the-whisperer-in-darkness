@@ -13,7 +13,7 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness
-from slot_types import Order
+from slot_types import Door
 from alexa_helper import StateVariables
 from audio import Audio
 
@@ -65,7 +65,7 @@ def enter_door_handler(handler_input):
         door = None     
 
     if(door == None) :
-        door = Order[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
+        door = Door[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
 
 
     StateVariables.set_state(handler_input, "door", door)

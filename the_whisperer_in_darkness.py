@@ -1,4 +1,5 @@
 from test_translator import Translator
+from slot_types import Door
 
 class TheWhispererInDarkness :
 
@@ -9,18 +10,17 @@ class TheWhispererInDarkness :
     @staticmethod
     def enter_door(door):
         """ 
-        returns a string to be said by Alexa after entering a door.
+        TODO
         """
         # if door is a Door then use it to choose which door, else assume door is a string
-        if (isinstance(door, Door))
-        {
-            if (door == Door.first)
+        if (isinstance(door, Door)):        
+            if (door == Door.first):
                 return Translator.LeftDoor
-            if (door == Door.second)
+            if (door == Door.second):
                 return Translator.RightDoor
             
             return Translator.DoorError
-        }
+        
 
         door = str(door)
 
