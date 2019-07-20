@@ -39,16 +39,16 @@ class StateVariables:
         handler_input.attributes_manager.session_attributes = state_variables
 
     @staticmethod
-    def retrieve_non_null_state(handler_input, key):
+    def get_non_null_state(handler_input, key):
         #read out our key, if it's None raise an error.
-        value = StateVariables.retrieve_state(handler_input, key)
+        value = StateVariables.get_state(handler_input, key)
         if (value is None):
             raise Exception("reading out variable '" + str(key) + "' returned None.") #TODO proper exception type
         else:
             return value
 
     @staticmethod
-    def retrieve_state(handler_input, key):
+    def get_state(handler_input, key):
         # retireve Alexa state variables
         state_variables = handler_input.attributes_manager.persistent_attributes       
         #return the value at our key (or None if it doesn't exist)

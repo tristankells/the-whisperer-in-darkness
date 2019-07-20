@@ -61,26 +61,32 @@ def enter_door_handler(handler_input):
     """
     # type: (HandlerInput) -> Response
 
-    # TODO: Handle the door order intent as well
-
     # the value of DoorNumber slot passed alongside the intent
     door_number = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value)
 
     door_order = Order[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
     if (door_number is None and door_order is not None):
         door_number = door_order.value
+    # TODO handle if both are None
 
     StateVariables.set_state(handler_input, "door_number", door_number)
 
-    speech_text = TheWhispererInDarkness.enter_door(door_number)
-    
-    
+    speech_text = TheWhispererInDarkness.enter_door(door_number)   
 
     reprompt = "Repeat yourself"
 
     handler_input.response_builder.speak(speech_text).ask(reprompt)
 
     return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func = lambda input:
+                    is_intent_name("WardrobeIntent")(input))
+def wardrobe_handler(handler_input):
+    """
+    Handler for processing WardrobeIntent
+    """
+    StateVariables.get_state
+    
 
 @sb.request_handler(can_handle_func=is_intent_name("MemoryCheckIntent"))
 def memory_check_handler(handler_input):
