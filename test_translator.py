@@ -16,3 +16,7 @@ class Translator() :
        
 
     DoorError = "You cant go through a door that isn't there"
+
+    InvestigateChains = "The chains seemed tightly bound. You see a lock"
+
+    ChainsError = "Not the time to investigate chains"

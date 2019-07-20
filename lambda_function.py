@@ -15,6 +15,7 @@ from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness
 from the_whisperer_in_darkness import OctopusRoom
 from slot_types import Door
+from slot_types import Room
 from alexa_helper import StateVariables
 from alexa_helper import AlexaHelper
 from audio import Audio
@@ -122,24 +123,27 @@ def wardrobe_handler(handler_input):
     return x
     
 
-    
-
-@sb.request_handler(can_handle_func=is_intent_name("MemoryCheckIntent"))
-def memory_check_handler(handler_input):
+@sb.request_handler(can_handle_func=is_intent_name("InvestigateChainsIntent"))
+def investigate_chains_handler(handler_input):
     """
-    Handler for checking what has been successfully saved into temp memory
+    Handler for investigating the chains around the book in the door on the right
     """
     # type: (HandlerInput) -> Response
 
-    # TODO: REMOVE AS ONLY USED FOR TESTING (Or maybe find away to lock to developer mode only???)
-
     state_variables = handler_input.attributes_manager.session_attributes
 
-    speech_text = "The last door you tried to go through is " + state_variables['door']
+    try:
+        room = Room[state_variables["Room"]]
+    except:
+        room = Room.mirror
+
+    speech_text = TheWhispererInDarkness.investigate_chains(room)
+
     reprompt = "Default reprompt"
 
     handler_input.response_builder.speak(speech_text).ask(reprompt)
     return handler_input.response_builder.response
+
 
 
 # endregion 
