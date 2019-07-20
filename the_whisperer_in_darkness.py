@@ -38,5 +38,16 @@ class TheWhispererInDarkness :
 
 
 
+class OctopusRoom :
 
+    @staticmethod
+    def wardrobe(state_variables):
+            
+        if (not state_variables["InOctopusRoom"]):
+            return state_variables["Error"]
+
+        if (state_variables["IsOctopusReleased"]):
+            pass
+
+        #TODO error
         

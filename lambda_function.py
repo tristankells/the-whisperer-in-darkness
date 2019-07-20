@@ -13,8 +13,10 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness
+from the_whisperer_in_darkness import OctopusRoom
 from slot_types import Door
 from alexa_helper import StateVariables
+from alexa_helper import AlexaHelper
 from audio import Audio
 
 SKILL_NAME = 'The Whisperer in Darkness'
@@ -81,10 +83,13 @@ def enter_door_handler(handler_input):
 @sb.request_handler(can_handle_func = is_intent_name("AffirmativeLeftDoorIntent"))
 def affirmative_left_door_handler(handler_input):
     pass
+    #TODO do things
 
 @sb.request_handler(can_handle_func = is_intent_name("AffirmativeIntent"))
 def affirmative_handler(handler_input):
-
+    """
+    Handler for processing AffirmativeIntent, calls other intents based on context
+    """
     state_variables = handler_input.attributes_manager.persistent_attributes 
 
     if (state_variables["Affirmative_LeftDoor"]):
@@ -92,16 +97,15 @@ def affirmative_handler(handler_input):
     
     #TODO error message
 
-
-
-
 @sb.request_handler(can_handle_func = lambda input:
                     is_intent_name("OctopusIntent")(input))
 def octopus_handler(handler_input):
     """
     Handler for processing OctopusIntent
     """
-    StateVariables.set_state(handler_input, "Error", Audio.octopus_room_error_audio)
+    save_state_callback = AlexaHelper.get_save_state_callback(handler_input)
+
+    StateVariables.set_state_v2(handler_input, save_state_callback, "Error", Audio.octopus_room_error_audio)
     StateVariables.set_state(handler_input, "InOctopusRoom", True)
 
 @sb.request_handler(can_handle_func = is_intent_name("WardrobeIntent"))
@@ -110,9 +114,11 @@ def wardrobe_handler(handler_input):
     Handler for processing WardrobeIntent
     """
     state_variables = handler_input.attributes_manager.persistent_attributes       
+    
+    x = OctopusRoom.wardrobe(state_variables)
 
-    if (not state_variables["InOctopusRoom"]):
-        return state_variables["Error"]
+    return x
+    
 
     
 
