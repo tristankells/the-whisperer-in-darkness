@@ -13,6 +13,7 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness 
+from slot_types import Order 
 
 SKILL_NAME = 'The Whisperer in Darkness'
 sb = StandardSkillBuilder(table_name="The-Whisperer-In-Darkness", auto_create_table=True)
@@ -64,6 +65,10 @@ def enter_door_handler(handler_input):
     # the value of DoorNumber slot passed alongside the intent
     door_number = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value)
 
+    door_order = Order[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
+    if (door_number is None and door_order is not None):
+        door_number = door_order.value
+
     # retireve Alexa state variables
     state_variables = handler_input.attributes_manager.persistent_attributes
 
@@ -71,7 +76,9 @@ def enter_door_handler(handler_input):
     state_variables['door'] = door_number 
     handler_input.attributes_manager.session_attributes = state_variables
 
-    speech_text = "You asked to go through door number " + door_number
+    speech_text = TheWhispererInDarkness.enter_door(door_number)
+    
+    
 
     reprompt = "Repeat yourself"
 

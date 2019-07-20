@@ -6,3 +6,11 @@ class TheWhispererInDarkness :
 
     def handle_launch(self) :
         self.whisper_repsonse = Translator.Launch
+    
+    
+    def enter_door(door_number):
+        return "You asked to go through door number " + door_number
+
+    enter_door = staticmethod(enter_door)
+
+        
