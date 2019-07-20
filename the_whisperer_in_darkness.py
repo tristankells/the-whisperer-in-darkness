@@ -156,7 +156,7 @@ class TheWhispererInDarkness :
             elif(state_variables['ChestOpened'] == True) :
                 speech_text = Translator.GenericError
 
-        # If the player is in any room but the mirror room
+        # If the player is in any room BUT the mirror room
         elif(Room(state_variables["Room"]) != Room.mirror) :
             speech_text = Translator.GenericError
 
@@ -169,10 +169,23 @@ class TheWhispererInDarkness :
     @staticmethod
     def reach_in_chest(state_variables) :
         speech_text = None
-        #TODO : Insert code
-        speech_text = Translator.ReachInChest
 
+        #In the mirror room 
+        if(Room(state_variables["Room"]) == Room.mirror) :
 
+            # And the chest is opened / been investigated
+            if(state_variables["ChestOpened"] == True) :
+                state_variables["HasKey"] = True
+                speech_text = Translator.ReachInChest
+
+            # The chest hasn not been opened yet
+            elif(state_variables["ChestOpened"] == False) :
+                speech_text = Translator.GenericError
+
+        # If the player is in any room BUT the mirror room
+        elif(Room(state_variables["Room"]) != Room.mirror) :
+            speech_text = Translator.GenericError
+        
         #Final error catch
         if(speech_text == None) :
             speech_text = Translator.DebugError
