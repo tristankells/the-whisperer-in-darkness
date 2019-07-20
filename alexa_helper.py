@@ -8,8 +8,8 @@ from ask_sdk_model import Response
 from collections import defaultdict
 
 class StateVariables:
-    STATE_HISTORY_ENABLED = True # useful for debugging
-    STATE_HISTORY = "STATE_HISTORY"
+    # STATE_HISTORY_ENABLED = True # useful for debugging
+    # STATE_HISTORY = "STATE_HISTORY"
 
     @staticmethod
     def set_state(handler_input, key, value):
@@ -24,18 +24,18 @@ class StateVariables:
         # store the value in the state variables
         state_variables[key] = value # note this overrides any previous value if it existed
         
-        if (StateVariables.STATE_HISTORY_ENABLED):
-            # get the state history
-            try:
-                state_histroy = state_variables[StateVariables.STATE_HISTORY]
-            except KeyError:
-                state_histroy = list()
+        # if (StateVariables.STATE_HISTORY_ENABLED):
+        #     # get the state history
+        #     try:
+        #         state_histroy = state_variables[StateVariables.STATE_HISTORY]
+        #     except KeyError:
+        #         state_histroy = list()
 
-            # add the state we just set
-            state_histroy.append({ key, value, })
+        #     # add the state we just set
+        #     state_histroy.append({ key, value, })
 
-            # write history back to state variables list
-            state_variables[StateVariables.STATE_HISTORY] = state_histroy
+        #     # write history back to state variables list
+        #     state_variables[StateVariables.STATE_HISTORY] = state_histroy
 
         # save the state variables
         handler_input.attributes_manager.session_attributes = state_variables
