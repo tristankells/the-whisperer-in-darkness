@@ -9,27 +9,34 @@ class TheWhispererInDarkness :
         return Translator.Launch
     
     @staticmethod
-    def enter_door(door):
+    def enter_door(door, state_variables):
         """ 
         TODO
         """
-        # if door is a Door then use it to choose which door, else assume door is a string
-               
-        if (door == Door.first):
-                return Translator.LeftDoor
-        if (door == Door.second):
-                return Translator.RightDoor        
-
-        door = str(door)
-
-        if (door == "left" or door == "one" or door == "1" or door == 1  or door == "first" ) :
-            return Translator.LeftDoor
-
-        if (door == "right" or door == "two" or door == "2" or door == 2  or door == "second" ) :
-            
-            return Translator.RightDoor
+        response = {}
+        speech_text = None
         
-        return Translator.DoorError
+        # if door is a Door then use it to choose which door, else assume door is a string
+            
+
+        if (door == "left" or door == "one" or door == "1" or door == 1  or door == "first" or door == Door.first ) :
+            state_variables["Room"] = Room.octopus
+            speech_text =  Translator.LeftDoor
+
+        if (door == "right" or door == "two" or door == "2" or door == 2  or door == "second" or door == Door.second ) :
+            state_variables["Room"] = Room.mirror
+            speech_text =  Translator.RightDoor
+        
+        response["state_variables"] = state_variables
+
+        if(speech_text == None) : 
+            speech_text = Translator.DoorError
+
+        response["speech_text"] = speech_text
+
+        response["speech_text"] = "Slot value is " + door + " " + response["speech_text"]
+        
+        return response
 
     @staticmethod
     def exposition(parameter_list):

@@ -12,10 +12,8 @@ class Translator() :
 
     LeftDoor = "you enter the door on your left"
    
-
     RightDoor = "you enter the door on your right"
        
-
     DoorError = "You cant go through"
 
     # Investigate chains intent

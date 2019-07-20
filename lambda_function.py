@@ -78,9 +78,16 @@ def enter_door_handler(handler_input):
         except:
             door = None 
 
-    StateVariables.set_state(handler_input, "door", door)
+    state_variables = handler_input.attributes_manager.session_attributes
 
-    speech_text = TheWhispererInDarkness.enter_door(door)   
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.enter_door(door, state_variables)   
+
+    # save state variables
+    handler_input.attributes_manager.session_attributes = response["state_variables"]
+
+    # save speech text
+    speech_text = response["speech_text"]
 
     reprompt = "Repeat yourself"
 
