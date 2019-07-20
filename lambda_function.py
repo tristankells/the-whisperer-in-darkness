@@ -104,8 +104,10 @@ def octopus_handler(handler_input):
     Handler for processing OctopusIntent
     """
     save_state_callback = AlexaHelper.get_save_state_callback(handler_input)
+    
+    state_variables = handler_input.attributes_manager.persistent_attributes 
 
-    StateVariables.set_state_v2(handler_input, save_state_callback, "Error", Audio.octopus_room_error_audio)
+    OctopusRoom.octopus(state_variables, save_state_callback)
     StateVariables.set_state(handler_input, "InOctopusRoom", True)
 
 @sb.request_handler(can_handle_func = is_intent_name("WardrobeIntent"))

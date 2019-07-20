@@ -1,5 +1,7 @@
 from test_translator import Translator
 from slot_types import Door
+from audio import Audio
+from alexa_helper import StateVariables
 
 class TheWhispererInDarkness :
 
@@ -8,7 +10,7 @@ class TheWhispererInDarkness :
         return Translator.Launch
     
     @staticmethod
-    def enter_door(door):
+    def enter_door(door, save_state_callback=None):
         """ 
         TODO
         """
@@ -50,4 +52,11 @@ class OctopusRoom :
             pass
 
         #TODO error
+    
+    @staticmethod
+    def octopus(state_variables, save_state_callback=None):
+        
+        if (not save_state_callback is None):
+            StateVariables.set_state_v2(state_variables, save_state_callback, "Error", Audio.octopus_room_error_audio)
+        
         
