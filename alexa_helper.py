@@ -7,6 +7,20 @@ from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 from collections import defaultdict
 
+class AlexaHelper:
+    @staticmethod
+    def createAdder(handler_input):
+        return lambda y: handler_input.something.you
+
+    @staticmethod
+    def save_state_callback(handler_input, state):
+        handler_input.attributes_manager.session_attributes = state
+        return True
+
+    @staticmethod
+    def get_save_state_callback(handler_input):
+        return lambda state: AlexaHelper.save_state_callback(handler_input, state)
+
 class StateVariables:
     # STATE_HISTORY_ENABLED = True # useful for debugging
     # STATE_HISTORY = "STATE_HISTORY"
@@ -39,6 +53,19 @@ class StateVariables:
 
         # save the state variables
         handler_input.attributes_manager.session_attributes = state_variables
+    
+    @staticmethod
+    def set_state_v2(state_variables, save_state_callback, key, value):
+
+        # make sure that the key is a string
+        key = str(key)
+
+        # store the value in the state variables
+        state_variables[key] = value # note this overrides any previous value if it existed
+        
+        # save the state variables
+        save_state_callback(state_variables)
+
 
     @staticmethod
     def get_state(handler_input, key):

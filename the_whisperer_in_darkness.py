@@ -1,5 +1,7 @@
 from test_translator import Translator
 from slot_types import Door
+from audio import Audio
+from alexa_helper import StateVariables
 from slot_types import Room
 from response import Response
 
@@ -141,5 +143,23 @@ class TheWhispererInDarkness :
 
 
 
+class OctopusRoom :
 
+    @staticmethod
+    def wardrobe(state_variables):
+            
+        if (not state_variables["InOctopusRoom"]):
+            return state_variables["Error"]
+
+        if (state_variables["IsOctopusReleased"]):
+            pass
+
+        #TODO error
+    
+    @staticmethod
+    def octopus(state_variables, save_state_callback=None):
+        
+        if (not save_state_callback is None):
+            StateVariables.set_state_v2(state_variables, save_state_callback, "Error", Audio.octopus_room_error_audio)
+        
         
