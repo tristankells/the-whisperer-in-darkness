@@ -57,12 +57,14 @@ def enter_door_handler(handler_input):
     # type: (HandlerInput) -> Response
 
     # the value of DoorNumber slot passed alongside the intent
+
+    
+    
     door_number = str(handler_input.request_envelope.request.intent.slots["DoorNumber"].value)
 
-    door_order = Order[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
-    if (door_number is None and door_order is not None):
-        door_number = door_order.value
-    # TODO handle if both are None
+    if(door_number == None) :
+        door_order = Order[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
+
 
     StateVariables.set_state(handler_input, "door_number", door_number)
 
