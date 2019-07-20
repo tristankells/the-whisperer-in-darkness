@@ -12,11 +12,7 @@ class TheWhispererInDarkness :
         return Response(Translator.Launch) 
     
     @staticmethod
-<<<<<<< HEAD
-    def enter_door(door, save_state_callback=None):
-=======
     def enter_door(door, state_variables):
->>>>>>> feb36ce1123f2255b837cef710b292d436b2cec8
         """ 
         TODO
         """
