@@ -11,6 +11,19 @@ class TheWhispererInDarkness :
         """ 
         returns a string to be said by Alexa after entering a door.
         """
+        # if door is a Door then use it to choose which door, else assume door is a string
+        if (isinstance(door, Door))
+        {
+            if (door == Door.first)
+                return Translator.LeftDoor
+            if (door == Door.second)
+                return Translator.RightDoor
+            
+            return Translator.DoorError
+        }
+
+        door = str(door)
+
         if (door == "left" or door == "one"  or door == "first" ) :
             return Translator.LeftDoor
 
