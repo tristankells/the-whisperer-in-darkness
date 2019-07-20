@@ -33,7 +33,8 @@ def launch_request_handler(handler_input):
     # type: (HandlerInput) -> Response
     state_variables = handler_input.attributes_manager.persistent_attributes
     if not state_variables:
-        state_variables['playing'] = True
+        state_variables['Room'] = Room.lobby
+        state_variables['HasKey'] = False
 
     handler_input.attributes_manager.session_attributes = state_variables
 
@@ -66,8 +67,16 @@ def enter_door_handler(handler_input):
         door = None     
 
     if(door == None) :
-        door = Door[str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)]
-
+        try :
+            door = Order(str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value))
+        except:
+            door = None 
+            
+    if(door == None) :
+        try :
+            door = str(handler_input.request_envelope.request.intent.slots["LeftRight"].value)
+        except:
+            door = None 
 
     StateVariables.set_state(handler_input, "door", door)
 
@@ -121,15 +130,23 @@ def investigate_chains_handler(handler_input):
     Handler for investigating the chains around the book in the door on the right
     """
     # type: (HandlerInput) -> Response
-
-    state_variables = handler_input.attributes_manager.session_attributes
-
-    try:
-        room = Room[state_variables["Room"]]
-    except:
-        room = Room.mirror
-
+    room = StateVariables.get_state(handler_input, "Room")
     speech_text = TheWhispererInDarkness.investigate_chains(room)
+
+    reprompt = "Default reprompt"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func=is_intent_name("UseKeyIntent"))
+def use_key_intent(handler_input):
+    """
+    Handler for using the key to unlock the chains around the screaming book
+    """
+    # type: (HandlerInput) -> Response
+    room = StateVariables.get_state(handler_input, "Room")
+    has_key = StateVariables.get_state(handler_input, "HasKey")
+    speech_text = TheWhispererInDarkness.use_key(room, has_key)
 
     reprompt = "Default reprompt"
 

@@ -14,21 +14,19 @@ class TheWhispererInDarkness :
         TODO
         """
         # if door is a Door then use it to choose which door, else assume door is a string
-        if (isinstance(door, Door)):        
-            if (door == Door.first):
+               
+        if (door == Door.first):
                 return Translator.LeftDoor
-            if (door == Door.second):
-                return Translator.RightDoor
-            
-            return Translator.DoorError
-        
+        if (door == Door.second):
+                return Translator.RightDoor        
 
         door = str(door)
 
-        if (door == "left" or door == "one"  or door == "first" ) :
+        if (door == "left" or door == "one" or door == "1" or door == 1  or door == "first" ) :
             return Translator.LeftDoor
 
-        if (door == "right" or door == "two"  or door == "second" ) :
+        if (door == "right" or door == "two" or door == "2" or door == 2  or door == "second" ) :
+            
             return Translator.RightDoor
         
         return Translator.DoorError
@@ -38,10 +36,18 @@ class TheWhispererInDarkness :
         pass
 
     @staticmethod
-    def investigate_chains(room):
+    def investigate_chains(room) :
         if(room != Room.mirror) :
            return Translator.ChainsError
         return Translator.InvestigateChains
+
+    @staticmethod
+    def use_key(room, has_key):
+        if(room != Room.mirror) :
+           return Translator.UseKeyError_WrongRoom
+        if(has_key == False) :
+            return Translator.UseKeyError_NoKey
+        return Translator.UseKey
 
         
 
