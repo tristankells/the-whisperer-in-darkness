@@ -79,6 +79,23 @@ def enter_door_handler(handler_input):
 
     return handler_input.response_builder.response
 
+@sb.request_handler(can_handle_func = is_intent_name("AffirmativeLeftDoorIntent"))
+def affirmative_left_door_handler(handler_input):
+    pass
+
+@sb.request_handler(can_handle_func = is_intent_name("AffirmativeIntent"))
+def affirmative_handler(handler_input):
+
+    state_variables = handler_input.attributes_manager.persistent_attributes 
+
+    if (state_variables["Affirmative_LeftDoor"]):
+        return affirmative_left_door_handler(handler_input)
+    
+    #TODO error message
+
+
+
+
 @sb.request_handler(can_handle_func = lambda input:
                     is_intent_name("OctopusIntent")(input))
 def octopus_handler(handler_input):
@@ -88,9 +105,7 @@ def octopus_handler(handler_input):
     StateVariables.set_state(handler_input, "Error", Audio.octopus_room_error_audio)
     StateVariables.set_state(handler_input, "InOctopusRoom", True)
 
-
-@sb.request_handler(can_handle_func = lambda input:
-                    is_intent_name("WardrobeIntent")(input))
+@sb.request_handler(can_handle_func = is_intent_name("WardrobeIntent"))
 def wardrobe_handler(handler_input):
     """
     Handler for processing WardrobeIntent
