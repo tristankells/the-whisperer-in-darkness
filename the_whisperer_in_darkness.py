@@ -7,7 +7,7 @@ class TheWhispererInDarkness :
 
     @staticmethod
     def handle_launch() :
-        return Translator.Launch
+        return Response(Translator.Launch) 
     
     @staticmethod
     def enter_door(door, state_variables):
@@ -38,10 +38,12 @@ class TheWhispererInDarkness :
     @staticmethod
     def investigate_chains(state_variables) :
         speech_text = None
+
         if(state_variables["Room"] != Room.mirror) :
            speech_text = Translator.ChainsError
         if(speech_text == None) :
             Translator.InvestigateChains
+
         return Response(speech_text, state_variables)
 
     @staticmethod
@@ -59,20 +61,25 @@ class TheWhispererInDarkness :
 
     @staticmethod
     def open_book(state_variables):
+        speech_text = None
         #TODO : Insert code
         speech_text = Translator.OpenBook
         return Response(speech_text, state_variables) 
 
     @staticmethod
     def leave_room(state_variables):
+        speech_text = None
         #TODO : Insert code
         speech_text =  Translator.LeaveRoom
+
         return Response(speech_text, state_variables)
 
     @staticmethod
     def throw_book(state_variables) :
+        speech_text = None
         #TODO : Insert code
         speech_text = Translator.ThrowBook
+
         return Response(speech_text, state_variables) 
 
 

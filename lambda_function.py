@@ -38,7 +38,9 @@ def launch_request_handler(handler_input):
 
     handler_input.attributes_manager.session_attributes = state_variables
 
-    speech_text = TheWhispererInDarkness.handle_launch()
+    response = TheWhispererInDarkness.handle_launch()
+
+    speech_text = response.speech_text
 
     reprompt = "Repeat yourself"
 
