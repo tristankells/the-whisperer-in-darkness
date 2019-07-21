@@ -31,10 +31,10 @@ class TheWhispererInDarkness :
         if (door is None):
             speech_text = Translator.DoorError
         elif ((isinstance(door, str) and door.upper() in map(str.upper , ["first", "left", "one", "1"])) or door == 1):
-            state_variables["Room"] = Room.octopus
+            state_variables[TheWhispererInDarkness.ROOM] = Room.octopus
             speech_text =  Translator.LeftDoor
         elif ((isinstance(door, str) and door.upper() in map(str.upper , ["second", "right", "two", "2"])) or door == 2):
-            state_variables["Room"] = Room.mirror
+            state_variables[TheWhispererInDarkness.ROOM] = Room.mirror
             speech_text =  Translator.RightDoor
         else:
             speech_text = Translator.DoorError
@@ -45,10 +45,10 @@ class TheWhispererInDarkness :
     def investigate_chains(state_variables) :
         speech_text = None
 
-        if(Room(state_variables["Room"]) == Room.mirror) :
-            if(state_variables["ChainsInvestigated"] == False) :
+        if(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.mirror) :
+            if(state_variables[TheWhispererInDarkness.CHAINS_INVESTIGATED] == False) :
                 speech_text = Translator.InvestigateChains
-                state_variables["ChainsInvestigated"] = True
+                state_variables[TheWhispererInDarkness.CHAINS_INVESTIGATED] = True
             else : 
                 speech_text = Translator.AlreadyInvestigatedChains
 
@@ -64,26 +64,26 @@ class TheWhispererInDarkness :
         speech_text = None
 
         #In the mirror room 
-        if(Room(state_variables["Room"]) == Room.mirror) :
+        if(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.mirror) :
 
             # And you have the key
-            if(state_variables["HasKey"] == True) :
+            if(state_variables[TheWhispererInDarkness.HAS_KEY] == True) :
                 
                 # And you dont already have the book 
-                if(state_variables["HasBook"] == False) :
-                    state_variables["BookLocked"] = False
+                if(state_variables[TheWhispererInDarkness.HAS_BOOK] == False) :
+                    state_variables[TheWhispererInDarkness.BOOK_LOCKED] = False
                     speech_text = Translator.UseKey
                 
                 # But you already have the book
-                elif(state_variables["HasBook"] == True) :
+                elif(state_variables[TheWhispererInDarkness.HAS_BOOK] == True) :
                     speech_text = Translator.GenericError
 
             #But you dont have the key 
-            elif(state_variables["HasKey"] == False) :
+            elif(state_variables[TheWhispererInDarkness.HAS_KEY] == False) :
                 speech_text = Translator.GenericError
 
         #If you in any room but the mirror room  
-        elif(state_variables["HasKey"] == False) :
+        elif(state_variables[TheWhispererInDarkness.HAS_KEY] == False) :
             speech_text = Translator.GenericError       
 
         if(speech_text == None) :
@@ -96,32 +96,32 @@ class TheWhispererInDarkness :
         speech_text = None
 
         #In the mirror room 
-        if(Room(state_variables["Room"]) == Room.mirror) :
+        if(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.mirror) :
 
             #If book is no longer in chains
-            if(state_variables['BookLocked'] == False) :
+            if(state_variables[TheWhispererInDarkness.BOOK_LOCKED] == False) :
                 
                 #If you dont have the book yet / havent tried to open it yet
-                if(state_variables['HasBook'] == False) :
+                if(state_variables[TheWhispererInDarkness.HAS_BOOK] == False) :
                     speech_text = Translator.OpenBookInMirrorRoom
-                    state_variables['HasBook'] = True
+                    state_variables[TheWhispererInDarkness.HAS_BOOK] = True
 
                 #If you have already opened the book in the mirror room
-                elif(state_variables['HasBook'] == True) :
+                elif(state_variables[TheWhispererInDarkness.HAS_BOOK] == True) :
                     speech_text = Translator.OpenBook_NotNeeded
 
             #If book is still in chains
-            elif(state_variables['BookLocked'] == True) :
+            elif(state_variables[TheWhispererInDarkness.BOOK_LOCKED] == True) :
                 speech_text = Translator.OpenBook_ItsLocked
 
         #In the lobby room 
-        elif(Room(state_variables["Room"]) == Room.lobby) :
+        elif(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.lobby) :
 
             #If you have the book
-            if(state_variables['HasBook'] == True ) :
+            if(state_variables[TheWhispererInDarkness.HAS_BOOK] == True ) :
 
                 #If the mirror has yet to be be broken
-                if(state_variables['MirrorBroken'] == False) : 
+                if(state_variables[TheWhispererInDarkness.MIRROR_BROKEN] == False) : 
                     
                     # If the octopus has been released when you break the glass, trigger game exit
                     if(state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] == True) :
@@ -129,18 +129,18 @@ class TheWhispererInDarkness :
 
                     elif(state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] == False) :
                         speech_text = Translator.OpenBookInLobby
-                        state_variables['MirrorBroken'] = True
+                        state_variables[TheWhispererInDarkness.MIRROR_BROKEN] = True
 
                 #If the mirror is already broken
-                elif(state_variables['MirrorBroken'] == True):
+                elif(state_variables[TheWhispererInDarkness.MIRROR_BROKEN] == True):
                     speech_text = Translator.OpenBook_NotNeeded
                 
             #If you DON'T have the book
-            elif(state_variables['HasBook'] == False):
+            elif(state_variables[TheWhispererInDarkness.HAS_BOOK] == False):
                 speech_text = Translator.GenericError
 
         #In the octopus room 
-        elif(Room(state_variables["Room"]) == Room.octopus) :
+        elif(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.octopus) :
            speech_text = Translator.GenericError
 
         #Final error catch
@@ -154,12 +154,12 @@ class TheWhispererInDarkness :
         speech_text = None
 
         #If the player is in any room EXCEPT for the lobby
-        if(Room(state_variables["Room"]) != Room.lobby) :
-            state_variables["Room"] = Room.lobby
+        if(Room(state_variables[TheWhispererInDarkness.ROOM]) != Room.lobby) :
+            state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
             speech_text = Translator.LeaveRoom
         
         #If the player is in the lobby
-        elif(Room(state_variables["Room"]) == Room.lobby) :
+        elif(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.lobby) :
             speech_text =  Translator.LeaveRoomError
 
         #Final error catch
@@ -173,11 +173,11 @@ class TheWhispererInDarkness :
         speech_text = None
         
         #if the player has the book
-        if(state_variables["HasBook"] == True) :
+        if(state_variables[TheWhispererInDarkness.HAS_BOOK] == True) :
             speech_text = Translator.ThrowBook
         
         #else if the player doe not have the book
-        elif(state_variables["HasBook"] == False) :
+        elif(state_variables[TheWhispererInDarkness.HAS_BOOK] == False) :
             speech_text = Translator.GenericError
 
         #Final error catch
@@ -190,7 +190,7 @@ class TheWhispererInDarkness :
     def open_chest(state_variables) :
         state_helper = StateHelper(lambda: state_variables)
 
-        room = Room(state_helper.get_state("Room"))
+        room = Room(state_helper.get_state(TheWhispererInDarkness.ROOM))
 
         speech_text = None
 
@@ -198,12 +198,12 @@ class TheWhispererInDarkness :
         if(room == Room.mirror) :
 
             #If the player does not already have the key
-            if(state_variables['ChestOpened'] == False) :
-                state_variables["ChestOpened"] = True
+            if(state_variables[TheWhispererInDarkness.CHEST_OPENED] == False) :
+                state_variables[TheWhispererInDarkness.CHEST_OPENED] = True
                 speech_text = Translator.OpenChest
 
             #if the player already has the key
-            elif(state_variables['ChestOpened'] == True) :
+            elif(state_variables[TheWhispererInDarkness.CHEST_OPENED] == True) :
                 speech_text = Translator.GenericError
 
         # If the player is in any room BUT the mirror room
@@ -221,19 +221,19 @@ class TheWhispererInDarkness :
         speech_text = None
 
         #In the mirror room 
-        if(Room(state_variables["Room"]) == Room.mirror) :
+        if(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.mirror) :
 
             # And the chest is opened / been investigated
-            if(state_variables["ChestOpened"] == True) :
-                state_variables["HasKey"] = True
+            if(state_variables[TheWhispererInDarkness.CHEST_OPENED] == True) :
+                state_variables[TheWhispererInDarkness.HAS_KEY] = True
                 speech_text = Translator.ReachInChest
 
             # The chest hasn not been opened yet
-            elif(state_variables["ChestOpened"] == False) :
+            elif(state_variables[TheWhispererInDarkness.CHEST_OPENED] == False) :
                 speech_text = Translator.GenericError
 
         # If the player is in any room BUT the mirror room
-        elif(Room(state_variables["Room"]) != Room.mirror) :
+        elif(Room(state_variables[TheWhispererInDarkness.ROOM]) != Room.mirror) :
             speech_text = Translator.GenericError
         
         #Final error catch
@@ -272,7 +272,7 @@ class OctopusRoom :
         # we use state helper since it automatically converts key errors into None
         state_helper = StateHelper(lambda: state_variables)
         is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
-        room = state_helper.get_state("Room")
+        room = state_helper.get_state(TheWhispererInDarkness.ROOM)
        
         in_octopus_room = room is not None and Room(room) == Room.octopus
         if (not in_octopus_room):
@@ -281,7 +281,7 @@ class OctopusRoom :
         
         if (is_octopus_released):
             speech_text = "The wardrobe door slams shut. After a moment inside, you open it, and sense the presence again. You have returned to the entry way."
-            state_variables["Room"] = Room.lobby
+            state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
 
         response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
         return response
@@ -292,7 +292,7 @@ class OctopusRoom :
         # we use state helper since it automatically converts key errors into None
         state_helper = StateHelper(lambda: state_variables)
         is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
-        room = state_helper.get_state("Room")
+        room = state_helper.get_state(TheWhispererInDarkness.ROOM)
         
         in_octopus_room = room is not None and Room(room) == Room.octopus
         if (not in_octopus_room):
@@ -315,7 +315,7 @@ class OctopusRoom :
         # we use state helper since it automatically converts key errors into None
         state_helper = StateHelper(lambda: state_variables)
         is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
-        room = state_helper.get_state("Room")
+        room = state_helper.get_state(TheWhispererInDarkness.ROOM)
         
         in_octopus_room = room is not None and Room(room) == Room.octopus
         if (not in_octopus_room):
