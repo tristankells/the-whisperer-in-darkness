@@ -90,9 +90,10 @@ def enter_door_handler(handler_input):
     # reponse captured from game class. Contains speech text and transformed state variables.
     response = TheWhispererInDarkness.enter_door(door, state_variables)   
 
-    AlexaHelper.process_response(handler_input, response)
+    # call our helper method to update the handler_input
+    handler_input = AlexaHelper.build_response(handler_input, response)
 
-    return handler_input.response_builder.response
+    return handler_input.response_builder.response     
 
 @sb.request_handler(can_handle_func = is_intent_name("AffirmativeLeftDoorIntent"))
 def affirmative_left_door_handler(handler_input):
@@ -134,7 +135,7 @@ def wardrobe_handler(handler_input):
     
     response = OctopusRoom.wardrobe(state_variables)
     
-    AlexaHelper.process_response(handler_input, response)
+    AlexaHelper.build_response(handler_input, response)
     
     return handler_input.response_builder.response
     
