@@ -61,7 +61,7 @@ class Translator() :
     ThrowBookError = "You try to throw it, but you dont have it"
 
     # Open chest intent
-    OpenChest = "You open the chest. Its fucking gross in there"
+    OpenChest = Audio.InvestigateChest
 
     # Reach in chest intent
     ReachInChest = "You reach through the grossness and grab a key"
