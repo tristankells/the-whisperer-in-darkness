@@ -255,6 +255,13 @@ class TheWhispererInDarkness :
         speech_text = Translator.GenericError
         
         return Response(speech_text) 
+    
+    @staticmethod
+    def repeat_riddle() :
+
+        speech_text = Translator.RepeatRiddle
+        
+        return Response(speech_text) 
 
 
 

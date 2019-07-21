@@ -71,3 +71,5 @@ class Translator() :
     Help = "You ask for help, but you wont even help yourself"
 
     EndGame = "You broke the mirror, freed the squid and now you win"
+
+    RepeatRiddle = "You asked fo rthe riddle again. You would be lucky"
