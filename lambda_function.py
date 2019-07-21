@@ -148,7 +148,7 @@ def investigate_chains_handler(handler_input):
     state_variables = handler_input.attributes_manager.session_attributes
 
     # reponse captured from game class. Contains speech text and transformed state variables.
-    response = TheWhispererInDarkness.investigate_chains( state_variables)   
+    response = TheWhispererInDarkness.investigate_chains(state_variables)   
 
     # save state variables
     handler_input.attributes_manager.session_attributes = response.state_variables
@@ -296,6 +296,8 @@ def repeat_intent_handler(handler_input):
 
     previous_speech_text = state_helper.get_state("PreviousSpeechText")
     previous_reprompt = state_helper.get_state("PreviousReprompt")
+
+    # TODO handle when above are None
 
     # TODO add audio snippet saying that this is a repeat of the previous speech
 

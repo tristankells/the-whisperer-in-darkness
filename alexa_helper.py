@@ -60,10 +60,10 @@ class StateHelper:
         self.session_variables_delegate = session_variables_delegate
 
     def get_state(self, key):
-        handler_input = self.session_variables_delegate()
+        session_variables = self.session_variables_delegate()
         key = str(key)
         try:
-            return handler_input.attributes_manager.persistent_attributes[key]               
+            return session_variables[key]               
         except KeyError:
             return None
 
