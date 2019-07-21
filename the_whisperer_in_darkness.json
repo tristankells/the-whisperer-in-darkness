@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "the whisperer in darkness",
+            "invocationName": "sightless manor",
             "intents": [
                 {
                     "name": "AMAZON.FallbackIntent",
@@ -119,6 +119,53 @@
                         "see if the wadrobe can be opened",
                         "Go to wardrobe",
                         "Open the wardrboe"
+                    ]
+                },
+                {
+                    "name": "OpenChestIntent",
+                    "slots": [],
+                    "samples": [
+                        "open the container",
+                        "look in the chest",
+                        "look in the container",
+                        "open the box",
+                        "look in the box",
+                        "investigate the chest",
+                        "open the chest",
+                        "i open the chest"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.RepeatIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ReachInChestIntent",
+                    "slots": [],
+                    "samples": [
+                        "reach in the chest",
+                        "force your hand inside of the chest",
+                        "I force my hand inside of the chest",
+                        "reach into the chest",
+                        "reach in chest "
+                    ]
+                },
+                {
+                    "name": "ChainReaction",
+                    "slots": [],
+                    "samples": [
+                        "unleash the chain reaction",
+                        "begin the chain reaction",
+                        "start a chain reaction",
+                        "chain reaction"
                     ]
                 }
             ],
