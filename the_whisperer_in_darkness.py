@@ -269,8 +269,6 @@ class TheWhispererInDarkness :
 
 
 
-        
-
 
 
 
@@ -285,6 +283,8 @@ class OctopusRoom :
         state_helper = StateHelper(lambda: state_variables)
         is_aquarium_open = state_helper.get_state(OctopusRoom.IS_AQUARIUM_OPEN)
         is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
+        is_mirror_broken = state_helper.get_state(TheWhispererInDarkness.MIRROR_BROKEN)
+
         room = state_helper.get_state(TheWhispererInDarkness.ROOM)
        
         in_octopus_room = room is not None and Room(room) == Room.octopus
@@ -297,10 +297,10 @@ class OctopusRoom :
             speech_text = Translator.Octopus_OpenWardrobeBeforeOctopusRelease
         elif (is_aquarium_open and is_octopus_released):
             state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
-            if (True):
-                speech_text = Translator.Octopus_OpenWardrobeToExitBeach
-            else:
+            if (is_mirror_broken):
                 speech_text = Translator.Octopus_OpenWardrobeToExitBeach + Translator.EndGame
+            else:
+                speech_text = Translator.Octopus_OpenWardrobeToExitBeach
         else:
             speech_text = Translator.DebugError
             
