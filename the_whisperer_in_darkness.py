@@ -59,12 +59,31 @@ class TheWhispererInDarkness :
     def use_key(state_variables):
         speech_text = None
 
-        if(state_variables["Room"] != Room.mirror) :
-           Translator.UseKeyError_WrongRoom
-        if(state_variables["HasKey"] == False) :
-            speech_text = Translator.UseKeyError_NoKey
+        #In the mirror room 
+        if(Room(state_variables["Room"]) == Room.mirror) :
+
+            # And you have the key
+            if(state_variables["HasKey"] == True) :
+                
+                # And you dont already have the book 
+                if(state_variables["HasBook"] == False) :
+                    state_variables["BookLocked"] = False
+                    speech_text = Translator.UseKey
+                
+                # But you already have the book
+                elif(state_variables["HasBook"] == True) :
+                    speech_text = Translator.GenericError
+
+            #But you dont have the key 
+            elif(state_variables["HasKey"] == False) :
+                speech_text = Translator.GenericError
+
+        #If you in any room but the mirror room  
+        elif(state_variables["HasKey"] == False) :
+            speech_text = Translator.GenericError       
+
         if(speech_text == None) :
-            speech_text = Translator.UseKey
+            speech_text = Translator.GenericError
 
         return Response(speech_text, state_variables) 
 
