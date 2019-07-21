@@ -334,12 +334,10 @@ def help_intent_handler(handler_input):
     """
     # type: (HandlerInput) -> Response
 
-    # TODO: Add functionality
+    response = TheWhispererInDarkness.help()
 
-    speech_text = "Default response"
-    reprompt = "Default reprompt"
+    handler_input.response_builder.speak(response.speech_text).ask(response.reprompt)
 
-    handler_input.response_builder.speak(speech_text).ask(reprompt)
     return handler_input.response_builder.response
 
 @sb.request_handler(
@@ -370,25 +368,10 @@ def fallback_handler(handler_input):
     """
     # type: (HandlerInput) -> Response
 
-    # TODO: Customise or delete
+    response = TheWhispererInDarkness.fallback()
 
-    game_variables = handler_input.attributes_manager.session_attributes
-
-    if ("game_state" in game_variables and
-            game_variables["game_state"]=="STARTED"):
-        speech_text = (
-            "The {} skill can't help you with that.  "
-            "Try guessing a number between 0 and 100. ".format(SKILL_NAME))
-        reprompt = "Please guess a number between 0 and 100."
-    else:
-        speech_text = (
-            "The {} skill can't help you with that.  "
-            "It will come up with a number between 0 and 100 and "
-            "you try to guess it by saying a number in that range. "
-            "Would you like to play?".format(SKILL_NAME))
-        reprompt = "Say yes to start the game or no to quit."
-
-    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    handler_input.response_builder.speak(response.speech_text).ask(response.reprompt)
+    
     return handler_input.response_builder.response
 
 
