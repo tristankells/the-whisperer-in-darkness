@@ -124,10 +124,10 @@ class TheWhispererInDarkness :
                 if(state_variables['MirrorBroken'] == False) : 
                     
                     # If the octopus has been released when you break the glass, trigger game exit
-                    if(state_variables['OctopusReleased'] == True) :
+                    if(state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] == True) :
                         speech_text = Translator.OpenBookInLobby + Translator.EndGame
 
-                    elif(state_variables['OctopusReleased'] == False) :
+                    elif(state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] == False) :
                         speech_text = Translator.OpenBookInLobby
                         state_variables['MirrorBroken'] = True
 
