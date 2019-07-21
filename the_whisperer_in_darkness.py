@@ -138,7 +138,7 @@ class TheWhispererInDarkness :
         if(speech_text == None) :
             speech_text = Translator.DebugError
 
-        return Response(speech_text, state_variables) 
+        return Response(speech_text, state_variables = state_variables) 
     
     @staticmethod
     def open_chest(state_variables) :
@@ -164,7 +164,7 @@ class TheWhispererInDarkness :
         if(speech_text == None) :
             speech_text = Translator.DebugError
 
-        return Response(speech_text, state_variables) 
+        return Response(speech_text, state_variables = state_variables) 
 
     @staticmethod
     def reach_in_chest(state_variables) :
