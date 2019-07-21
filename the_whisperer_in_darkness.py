@@ -359,13 +359,14 @@ class OctopusRoom :
             should_save_speech_text=False
             speech_text = Translator.GenericError
         elif (is_aquarium_open and is_octopus_released):
+            should_save_speech_text = False
             speech_text = Translator.Octopus_AquariumShatters + "\n" + Translator.Octopus_ExprienceTheBeach
         elif (is_aquarium_open and not is_octopus_released):
-            state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] = True
-            speech_text = Translator.Octopus_ReturnTheOctopus + "\n" + Translator.Octopus_ExprienceTheBeach
+            state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] = False
+            speech_text = Translator.Octopus_ReleaseOctopusBecomeBeach
         elif (not is_aquarium_open and not is_octopus_released):
-            should_save_speech_text = False
-            speech_text = Translator.Octopus_NoReturningTheOctopus + "\n" + Translator.Octopus_ExprienceTheBeach
+            state_variables[OctopusRoom.IS_AQUARIUM_OPEN] = True
+            speech_text = Translator.Octopus_OpenAquarium
         else:
             speech_text = Translator.DebugError
                     
