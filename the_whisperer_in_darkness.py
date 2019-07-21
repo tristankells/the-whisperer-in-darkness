@@ -3,6 +3,7 @@ from test_translator import Translator
 # from slot_types import LeftRight
 from audio import Audio
 from alexa_helper import StateVariables
+from alexa_helper import StateHelper
 from slot_types import Room
 from response import Response
 
@@ -10,7 +11,7 @@ class TheWhispererInDarkness :
 
     @staticmethod
     def handle_launch() :
-        return Response(Translator.Launch) 
+        return Response(Translator.Launch, should_save_speech_text=False) 
     
     @staticmethod
     def enter_door(door, state_variables):
@@ -38,10 +39,6 @@ class TheWhispererInDarkness :
             speech_text = Translator.DoorError
 
         return Response(speech_text, state_variables = state_variables)
-
-    @staticmethod
-    def exposition(parameter_list):
-        pass
 
     @staticmethod
     def investigate_chains(state_variables) :
@@ -262,7 +259,7 @@ class TheWhispererInDarkness :
 
 
 class OctopusRoom :
-
+    IS_OCTOPUS_RELEASED = "IsOctopusReleased"
 
     @staticmethod
     def octopus_old(state_variables, save_state_callback=None):
@@ -272,15 +269,34 @@ class OctopusRoom :
     
     @staticmethod
     def wardrobe(state_variables):
-            
-        if (not state_variables.get_state("InOctopusRoom")):
-            return state_variables.get_state("Error")
+        # we use state helper since it automatically converts key errors into None
+        state_helper = StateHelper(lambda: state_variables)
+        
+        is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
+        
+        if (is_octopus_released):
+            speech_text = "The wardrobe door slams shut. After a moment inside, you open it, and sense the presence again. You have returned to the entry way."
+            state_variables["Room"] = Room.lobby
 
-        if (state_variables["IsOctopusReleased"]):
-            pass
+        response = Response(speech_text, state_variables=state_variables)
+        return response
 
-        #TODO error
+    @staticmethod
+    def octopus(state_variables):
+        should_save_speech_text = True
+        # we use state helper since it automatically converts key errors into None
+        state_helper = StateHelper(lambda: state_variables)
+        is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
 
+        if (is_octopus_released):
+            should_save_speech_text=False
+            speech_text = "The Octopus has already been released." + "\nYou hear waves crashing and the squawk of a seagull."
+        else:
+            speech_text = "The room turns into sand" + "\nYou hear waves crashing and the squawk of a seagull."
+            state_variables[OctopusRoom.IS_OCTOPUS_RELEASED]
+        
+        response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
+        return response
     
     
         

@@ -8,10 +8,6 @@ from ask_sdk_model import Response
 from collections import defaultdict
 
 class AlexaHelper:
-    @staticmethod
-    def createAdder(handler_input):
-        return lambda y: handler_input.something.you
-
     #obsolete
     @staticmethod
     def save_state_callback(handler_input, state):
@@ -24,10 +20,17 @@ class AlexaHelper:
         return lambda state: AlexaHelper.save_state_callback(handler_input, state)
 
     @staticmethod
-    def build_response(handler_input, response, should_save_speech_text = True):
+    def process_response(handler_input, response):
+        # read out the variables from the response object
         state_variables = response.state_variables
         speech_text = response.speech_text
         reprompt = response.reprompt
+        should_save_speech_text = response.should_save_speech_text
+
+        # if intent didn't save any state we still want a dict to save previous speech to.
+        # empty dict and None are both falsey so `if (not state_variables):` is fine
+        if (not state_variables):
+            state_variables = handler_input.attributes_manager.session_attributes
 
         # save speech_text for next time
         if (should_save_speech_text):
@@ -64,7 +67,7 @@ class StateHelper:
         session_variables = self.session_variables_delegate()
         key = str(key)
         try:
-            return session_variables[key]               
+            return session_variables[key]              
         except KeyError:
             return None
 
