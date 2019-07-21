@@ -84,17 +84,17 @@ class Translator() :
 
     Octopus_OctopusAlreadyReleased = GenericError
 
-    Octopus_ExprienceTheBeach = "You hear waves crashing and the squawk of a seagull."
-
     Octopus_ReleaseOctopusBecomeBeach = Audio.FORMAT_STRING.format("7_ReleaseOctopus")
 
     Octopus_NoReturningTheOctopus = GenericError
 
     Octopus_AquariumShatters = GenericError
 
-    Octopus_OpenWardrobeReallyEarly = Audio.FORMAT_STRING.format("4_OpenWardrobeWhenFirstInRoom.mp3")
+    Octopus_OpenWardrobeBeforeAquarium = Audio.FORMAT_STRING.format("4_OpenWardrobeWhenFirstInRoom.mp3")
 
     Octopus_OpenWardrobeBeforeOctopusRelease = Audio.FORMAT_STRING.format("6_WardrobeOnBeachWithOctopus.mp3")
+
+    Octopus_OpenWardrobeToExitBeach = "Please can I have an audio file"
 
     Octopus_OpenAquarium = Audio.FORMAT_STRING.format("5_GrabOctopus.mp3")
 

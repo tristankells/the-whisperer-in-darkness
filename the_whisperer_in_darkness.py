@@ -283,18 +283,24 @@ class OctopusRoom :
         should_save_speech_text = True
         # we use state helper since it automatically converts key errors into None
         state_helper = StateHelper(lambda: state_variables)
+        is_aquarium_open = state_helper.get_state(OctopusRoom.IS_AQUARIUM_OPEN)
         is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
         room = state_helper.get_state(TheWhispererInDarkness.ROOM)
        
         in_octopus_room = room is not None and Room(room) == Room.octopus
         if (not in_octopus_room):
             should_save_speech_text=False
-            speech_text = "That shit ain't making no sense"
-        
-        if (is_octopus_released):
-            speech_text = "The wardrobe door slams shut. After a moment inside, you open it, and sense the presence again. You have returned to the entry way."
+            speech_text = Translator.GenericError
+        elif (not is_aquarium_open and not is_octopus_released):
+            speech_text = Translator.Octopus_OpenWardrobeBeforeAquarium
+        elif (is_aquarium_open and not is_octopus_released):
+            speech_text = Translator.Octopus_OpenWardrobeBeforeOctopusRelease
+        elif (is_aquarium_open and is_octopus_released):
             state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
-
+            speech_text = Translator.Octopus_OpenWardrobeToExitBeach
+        else:
+            speech_text = Translator.DebugError
+            
         response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
         return response
 
