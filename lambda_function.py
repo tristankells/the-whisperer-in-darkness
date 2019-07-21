@@ -14,7 +14,6 @@ from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness
 from the_whisperer_in_darkness import OctopusRoom
-from slot_types import Door
 from slot_types import Room
 from alexa_helper import StateVariables
 from alexa_helper import AlexaHelper
@@ -75,7 +74,7 @@ def enter_door_handler(handler_input):
 
     if(door == None) :
         try :
-            door = Order(str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value))
+            door = str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)
         except:
             door = None 
             

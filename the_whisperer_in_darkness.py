@@ -1,5 +1,6 @@
 from test_translator import Translator
-from slot_types import Door
+# from slot_types import Door
+# from slot_types import LeftRight
 from audio import Audio
 from alexa_helper import StateVariables
 from slot_types import Room
@@ -19,16 +20,21 @@ class TheWhispererInDarkness :
         speech_text = None
         
         # if door is a Door then use it to choose which door, else assume door is a string
-            
-        if (door == "left" or door == "one" or door == "1" or door == 1  or door == "first" or door == Door.first ) :
+        if (door is None):
+            speech_text = Translator.DoorError
+        elif (#(isinstance(door, Door) and door == Door.first) or
+            #(isinstance(door, LeftRight) and door == LeftRight.left) or
+            (isinstance(door, str) and door.upper() in map(str.upper , ["first", "left", "one", "1"]))
+            or door == 1):
             state_variables["Room"] = Room.octopus
             speech_text =  Translator.LeftDoor
-
-        if (door == "right" or door == "two" or door == "2" or door == 2  or door == "second" or door == Door.second ) :
+        elif (#(isinstance(door, Door) and door == Door.second) or
+            #(isinstance(door, LeftRight) and door == LeftRight.right) or
+            (isinstance(door, str) and door.upper() in map(str.upper , ["second", "right", "two", "2"]))
+            or door == 2):
             state_variables["Room"] = Room.mirror
             speech_text =  Translator.RightDoor
-
-        if(speech_text == None) : 
+        else:
             speech_text = Translator.DoorError
 
         return Response(speech_text, state_variables = state_variables)
