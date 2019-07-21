@@ -14,7 +14,6 @@ from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness
 from the_whisperer_in_darkness import OctopusRoom
-from slot_types import Door
 from slot_types import Room
 from alexa_helper import StateVariables
 from alexa_helper import AlexaHelper
@@ -75,7 +74,7 @@ def enter_door_handler(handler_input):
 
     if(door == None) :
         try :
-            door = Order(str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value))
+            door = str(handler_input.request_envelope.request.intent.slots["DoorOrder"].value)
         except:
             door = None 
             
@@ -90,9 +89,10 @@ def enter_door_handler(handler_input):
     # reponse captured from game class. Contains speech text and transformed state variables.
     response = TheWhispererInDarkness.enter_door(door, state_variables)   
 
-    AlexaHelper.process_response(handler_input, response)
+    # call our helper method to update the handler_input
+    handler_input = AlexaHelper.build_response(handler_input, response)
 
-    return handler_input.response_builder.response
+    return handler_input.response_builder.response     
 
 @sb.request_handler(can_handle_func = is_intent_name("AffirmativeLeftDoorIntent"))
 def affirmative_left_door_handler(handler_input):
@@ -134,7 +134,7 @@ def wardrobe_handler(handler_input):
     
     response = OctopusRoom.wardrobe(state_variables)
     
-    AlexaHelper.process_response(handler_input, response)
+    AlexaHelper.build_response(handler_input, response)
     
     return handler_input.response_builder.response
     

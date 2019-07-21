@@ -24,7 +24,7 @@ class AlexaHelper:
         return lambda state: AlexaHelper.save_state_callback(handler_input, state)
 
     @staticmethod
-    def process_response(handler_input, response, should_save_speech_text = True):
+    def build_response(handler_input, response, should_save_speech_text = True):
         state_variables = response.state_variables
         speech_text = response.speech_text
         reprompt = response.reprompt
@@ -40,7 +40,8 @@ class AlexaHelper:
         # build alexa response
         handler_input.response_builder.speak(speech_text).ask(reprompt)
 
-        # we don't return anything, rely on caller to keep a reference to handler_input
+        # return the handler method with the new attributes and response builder
+        return handler_input
 
     #obsolete
     @staticmethod
