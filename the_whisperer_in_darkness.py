@@ -134,9 +134,6 @@ class TheWhispererInDarkness :
         #TODO : Insert code
         speech_text = Translator.ThrowBook
 
-<<<<<<< HEAD
-        return Response(speech_text, state_variables = state_variables) 
-=======
         #Final error catch
         if(speech_text == None) :
             speech_text = Translator.DebugError
@@ -194,7 +191,6 @@ class TheWhispererInDarkness :
             speech_text = Translator.DebugError
 
         return Response(speech_text, state_variables) 
->>>>>>> a74cb0b9153c8dd765b865b9309d7b817b3b01ad
 
 
 
