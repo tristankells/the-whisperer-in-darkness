@@ -91,8 +91,7 @@ def enter_door_handler(handler_input):
     return handler_input.response_builder.response     
 
 #obsolete
-@sb.request_handler(can_handle_func = lambda input:
-                    is_intent_name("OctopusIntent")(input) and False)
+@sb.request_handler(can_handle_func = lambda input: is_intent_name("OctopusIntent")(input) and False)
 def octopus_handler_old(handler_input):
     """
     Handler for processing OctopusIntent
@@ -107,15 +106,27 @@ def octopus_handler_old(handler_input):
 
     return handler_input.response_builder.response
 
-@sb.request_handler(can_handle_func = lambda input:
-                    is_intent_name("OctopusIntent")(input))
+@sb.request_handler(can_handle_func = lambda input: is_intent_name("Octopus_OctopusIntent")(input))
 def octopus_handler(handler_input):
+    """
+    Handler for processing Octopus_OctopusIntent
+    """
+    state_variables = handler_input.attributes_manager.session_attributes
+    response = OctopusRoom.octopus(state_variables)
+
+    handler_input = AlexaHelper.process_response(handler_input, response)
+
+    return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func = lambda input: is_intent_name("Octopus_BadOctopusIntent")(input))
+def bad_octopus_handler(handler_input):
+    """
+    Handler for processing Octopus_BadOctopusIntent
+    """
     state_variables = handler_input.attributes_manager.session_attributes
 
-    # reponse captured from game class. Contains speech text and transformed state variables.
-    response = OctopusRoom.octopus(state_variables)   
+    response = OctopusRoom.bad_octopus(state_variables)
 
-    # call our helper method to update the handler_input
     handler_input = AlexaHelper.process_response(handler_input, response)
 
     return handler_input.response_builder.response
@@ -123,7 +134,7 @@ def octopus_handler(handler_input):
 @sb.request_handler(can_handle_func = is_intent_name("Octopus_WardrobeIntent"))
 def wardrobe_handler(handler_input):
     """
-    Handler for processing WardrobeIntent
+    Handler for processing Octopus_WardrobeIntent
     """
     state_variables = handler_input.attributes_manager.persistent_attributes       
     

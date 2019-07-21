@@ -250,23 +250,23 @@ class OctopusRoom :
     IS_OCTOPUS_RELEASED = "IsOctopusReleased"
 
     @staticmethod
-    def octopus_old(state_variables, save_state_callback=None):
-        
-        if (not save_state_callback is None):
-            StateVariables.set_state_v2(state_variables, save_state_callback, "Error", Audio.octopus_room_error_audio)
-    
-    @staticmethod
     def wardrobe(state_variables):
+        should_save_speech_text = True
         # we use state helper since it automatically converts key errors into None
         state_helper = StateHelper(lambda: state_variables)
-        
         is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
+        room = state_helper.get_state("Room")
+       
+        in_octopus_room = room is not None and Room(room) == Room.octopus
+        if (not in_octopus_room):
+            should_save_speech_text=False
+            speech_text = "That shit ain't making no sense"
         
         if (is_octopus_released):
             speech_text = "The wardrobe door slams shut. After a moment inside, you open it, and sense the presence again. You have returned to the entry way."
             state_variables["Room"] = Room.lobby
 
-        response = Response(speech_text, state_variables=state_variables)
+        response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
         return response
 
     @staticmethod
@@ -275,6 +275,12 @@ class OctopusRoom :
         # we use state helper since it automatically converts key errors into None
         state_helper = StateHelper(lambda: state_variables)
         is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
+        room = state_helper.get_state("Room")
+        
+        in_octopus_room = room is not None and Room(room) == Room.octopus
+        if (not in_octopus_room):
+            should_save_speech_text=False
+            speech_text = "That shit ain't making no sense"
 
         if (is_octopus_released):
             should_save_speech_text=False
@@ -285,6 +291,31 @@ class OctopusRoom :
         
         response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
         return response
+
+    @staticmethod
+    def bad_octopus(state_variables):
+        should_save_speech_text = True
+        # we use state helper since it automatically converts key errors into None
+        state_helper = StateHelper(lambda: state_variables)
+        is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
+        room = state_helper.get_state("Room")
+        
+        in_octopus_room = room is not None and Room(room) == Room.octopus
+        if (not in_octopus_room):
+            should_save_speech_text=False
+            speech_text = "That shit ain't making no sense"
+
+        if (is_octopus_released):
+            should_save_speech_text=False
+            speech_text = "The Octopus has already been released." + "\nYou hear waves crashing and the squawk of a seagull."
+        else:
+            #TODO can we add octopus specific audio here?
+            speech_text = "That isn't what you're supposed to do."
+            state_variables[OctopusRoom.IS_OCTOPUS_RELEASED]
+        
+        response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
+        return response
+
     
     
         
