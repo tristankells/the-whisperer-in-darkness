@@ -32,7 +32,7 @@
                         },
                         {
                             "name": "DoorOrder",
-                            "type": "ORDER"
+                            "type": "Door"
                         },
                         {
                             "name": "LeftRight",
@@ -62,9 +62,12 @@
                     "name": "InvestigateChainsIntent",
                     "slots": [],
                     "samples": [
-                        "pickup the chains",
+                        "unseal the bible",
+                        "unseal the book",
+                        "I try to open the chains",
+                        "I pickup the chains",
                         "touch the chains",
-                        "look at the chains",
+                        "I look at the chains",
                         "checkout out the chains",
                         "investigate chains"
                     ]
@@ -85,6 +88,15 @@
                     "name": "OpenBookIntent",
                     "slots": [],
                     "samples": [
+                        "release the necronomicon",
+                        "open the necronomicon",
+                        "open the volume",
+                        "open the tome",
+                        "open the bible",
+                        "bible open",
+                        "tome open",
+                        "i want to open the volumn",
+                        "i want to open the tome",
                         "i want to open the book",
                         "book open",
                         "open the book"
@@ -105,6 +117,7 @@
                     "name": "ThrowBookIntent",
                     "slots": [],
                     "samples": [
+                        "get rid of tome",
                         "get rid of book",
                         "chuck book",
                         "toss book",
@@ -116,7 +129,7 @@
                     "slots": [],
                     "samples": [
                         "more wardrobe",
-                        "see if the wadrobe can be opened",
+                        "see if the wardrobe can be opened",
                         "Go to wardrobe",
                         "Open the wardrboe"
                     ]
@@ -125,6 +138,7 @@
                     "name": "OpenChestIntent",
                     "slots": [],
                     "samples": [
+                        "pry open the chest",
                         "open the container",
                         "look in the chest",
                         "look in the container",
@@ -165,13 +179,83 @@
                         "unleash the chain reaction",
                         "begin the chain reaction",
                         "start a chain reaction",
-                        "chain reaction"
+                        "chain reaction" 
+                    ]
+                },
+                {
+                    "name": "Octopus_OctopusIntent",
+                    "slots": [],
+                    "samples": [
+                        "throw the thing to the sea",
+                        "set the living being free",
+                        "set the organism free",
+                        "set the animal free",
+                        "release the animal",
+                        "throw the animal to the sea",
+                        "set the beast free",
+                        "take the octopus to the sea",
+                        "throw the creature to the water",
+                        "set the creature free",
+                        "set the octopus free",
+                        "throw the octopus into the ocean",
+                        "Release the octopus"
+                    ]
+                },
+                {
+                    "name": "Octopus_BadOctopusIntent",
+                    "slots": [],
+                    "samples": [
+                        "keep the octopus",
+                        "put the octopus back",
+                        "lock the octopus in the wardrobe",
+                        "kill the octopus",
+                        "crush the octopus"
+                    ]
+                },
+                {
+                    "name": "Octopus_AquariumIntent",
+                    "slots": [],
+                    "samples": [
+                        "open the box",
+                        "look in the glass box",
+                        "Is it an aquarium",
+                        "Reach into the glass container",
+                        "Open the glass"
+                    ]
+                },
+                {
+                    "name": "RepeatRiddleIntent",
+                    "slots": [],
+                    "samples": [
+                        "what did the monster want again",
+                        "whats the riddle again",
+                        "Repeat the Riddle"
+                    ]
+                },
+                {
+                    "name": "HelpIntent",
+                    "slots": [],
+                    "samples": [
+                        "can i get some help",
+                        "help me please",
+                        "help me"
+                    ]
+                },
+                {
+                    "name": "SmashMirrorIntent",
+                    "slots": [],
+                    "samples": [
+                        "crack the mirror",
+                        "shatter the glass",
+                        "break the mirror",
+                        "smash the mirror",
+                        "I attack the mirror"
                     ]
                 }
             ],
             "types": [
                 {
-                    "name": "ORDER",
+                    "name": "Door",
                     "values": [
                         {
                             "name": {

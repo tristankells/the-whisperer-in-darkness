@@ -66,10 +66,14 @@ class Translator() :
     # Generic mesages
     GenericError = "You tried that, but nothing happens"
 
-    DebugError = "THe logic is a bit off"
+    DebugError = "The logic is hecka funked"
 
     Help = "You ask for help, but you wont even help yourself"
 
     EndGame = "You broke the mirror, freed the squid and now you win"
 
     RepeatRiddle = "You asked fo rthe riddle again. You would be lucky"
+    
+    # Octopus messages
+
+    #TODO

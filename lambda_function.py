@@ -15,7 +15,7 @@ from ask_sdk_model import Response
 from the_whisperer_in_darkness import TheWhispererInDarkness
 from the_whisperer_in_darkness import OctopusRoom
 from slot_types import Room
-from alexa_helper import StateVariables
+from alexa_helper import StateHelper
 from alexa_helper import AlexaHelper
 from audio import Audio
 
@@ -91,23 +91,39 @@ def enter_door_handler(handler_input):
 
     return handler_input.response_builder.response     
 
-#obsolete
-@sb.request_handler(can_handle_func = lambda input: is_intent_name("OctopusIntent")(input) and False)
-def octopus_handler_old(handler_input):
+@sb.request_handler(can_handle_func = is_intent_name("OpenBoxIntent"))
+def open_box_handler(handler_input):
     """
-    Handler for processing OctopusIntent
+    Handler for processing OpenBoxIntent
     """
-    save_state_callback = AlexaHelper.get_save_state_callback(handler_input)
+    state_helper = StateHelper(handler_input.attributes_manager.session_attributes)
     
-    state_variables = handler_input.attributes_manager.persistent_attributes 
+    room = state_helper.get_state(TheWhispererInDarkness.ROOM)
+    
+    if (room is not None and Room(room) == Room.octopus):
+        return aquarium_handler(handler_input)
+    elif (room is not None and Room(room) == Room.mirror):
+        return open_chest_intent(handler_input)
 
-    response = OctopusRoom.octopus_old(state_variables, save_state_callback)
-    
-    StateVariables.set_state(handler_input, "InOctopusRoom", True)
+    response = TheWhispererInDarkness.generic_error_response()
+
+    handler_input = AlexaHelper.process_response(handler_input, response)
 
     return handler_input.response_builder.response
 
-@sb.request_handler(can_handle_func = lambda input: is_intent_name("Octopus_OctopusIntent")(input))
+@sb.request_handler(can_handle_func = is_intent_name("Octopus_AquariumIntent"))
+def aquarium_handler(handler_input):
+    """
+    Handler for processing Octopus_AquariumIntent
+    """
+    state_variables = handler_input.attributes_manager.session_attributes
+    response = OctopusRoom.aquarium(state_variables)
+
+    handler_input = AlexaHelper.process_response(handler_input, response)
+
+    return handler_input.response_builder.response
+
+@sb.request_handler(can_handle_func = is_intent_name("Octopus_OctopusIntent"))
 def octopus_handler(handler_input):
     """
     Handler for processing Octopus_OctopusIntent
@@ -119,7 +135,7 @@ def octopus_handler(handler_input):
 
     return handler_input.response_builder.response
 
-@sb.request_handler(can_handle_func = lambda input: is_intent_name("Octopus_BadOctopusIntent")(input))
+@sb.request_handler(can_handle_func = is_intent_name("Octopus_BadOctopusIntent"))
 def bad_octopus_handler(handler_input):
     """
     Handler for processing Octopus_BadOctopusIntent
