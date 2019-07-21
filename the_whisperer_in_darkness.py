@@ -11,7 +11,7 @@ class TheWhispererInDarkness :
     ROOM = "Room"
     HAS_KEY = "HasKey"
     CHAINS_INVESTIGATED = "ChainsInvestigated"
-    BOOK_LOCKED = "BookLocked"
+    BOOK_UNLOCKED = "BookLocked"
     HAS_BOOK = "HasBook"
     CHEST_OPENED = "ChestOpened"
     MIRROR_BROKEN = "MirrorBroken"
@@ -71,7 +71,7 @@ class TheWhispererInDarkness :
                 
                 # And you dont already have the book 
                 if(state_variables[TheWhispererInDarkness.HAS_BOOK] == False) :
-                    state_variables[TheWhispererInDarkness.BOOK_LOCKED] = False
+                    state_variables[TheWhispererInDarkness.BOOK_UNLOCKED] = True
                     speech_text = Translator.UseKey
                 
                 # But you already have the book
@@ -99,7 +99,7 @@ class TheWhispererInDarkness :
         if(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.mirror) :
 
             #If book is no longer in chains
-            if(state_variables[TheWhispererInDarkness.BOOK_LOCKED] == False) :
+            if(state_variables[TheWhispererInDarkness.BOOK_UNLOCKED] == True) :
                 
                 #If you dont have the book yet / havent tried to open it yet
                 if(state_variables[TheWhispererInDarkness.HAS_BOOK] == False) :
@@ -111,7 +111,7 @@ class TheWhispererInDarkness :
                     speech_text = Translator.OpenBook_NotNeeded
 
             #If book is still in chains
-            elif(state_variables[TheWhispererInDarkness.BOOK_LOCKED] == True) :
+            elif(state_variables[TheWhispererInDarkness.BOOK_UNLOCKED] == False) :
                 speech_text = Translator.OpenBook_ItsLocked
 
         #In the lobby room 

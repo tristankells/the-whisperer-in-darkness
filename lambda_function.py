@@ -37,7 +37,7 @@ def launch_request_handler(handler_input):
         state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
         state_variables[TheWhispererInDarkness.HAS_KEY] = False
         state_variables[TheWhispererInDarkness.CHAINS_INVESTIGATED] = False
-        state_variables[TheWhispererInDarkness.BOOK_LOCKED]= True
+        state_variables[TheWhispererInDarkness.BOOK_UNLOCKED]= False
         state_variables[TheWhispererInDarkness.HAS_BOOK] = False
         state_variables[TheWhispererInDarkness.CHEST_OPENED] = False
         state_variables[TheWhispererInDarkness.MIRROR_BROKEN] = False
