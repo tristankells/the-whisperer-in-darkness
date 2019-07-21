@@ -158,12 +158,12 @@ class TheWhispererInDarkness :
         speech_text = None
 
         #If the player is in any room EXCEPT for the lobby
-        if(Room(state_variables[TheWhispererInDarkness.ROOM]) != Room.lobby) :
+        if(Room(state_variables[TheWhispererInDarkness.ROOM]) != Room.lobby):
             state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
-            speech_text = Translator.LeaveRoom
+            speech_text = Translator.LeaveMirrorRoom
         
         #If the player is in the lobby
-        elif(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.lobby) :
+        elif(Room(state_variables[TheWhispererInDarkness.ROOM]) == Room.lobby):
             speech_text =  Translator.LeaveRoomError
 
         #Final error catch

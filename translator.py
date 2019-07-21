@@ -15,15 +15,15 @@ class Translator() :
     # Generic mesages
     GenericError = "You tried that, but nothing happens"
 
-    WrongThingToDo = "That's the wrong thing to do"
+    WrongThingToDo = GenericError
 
-    DebugError = "The logic is hecka funked"
+    DebugError = "Ok this ones on me I've made a mistake"
 
-    Help = "You ask for help, but you wont even help yourself"
+    Help = GenericError
 
     EndGame = "You broke the mirror, freed the squid and now you win"
 
-    RepeatRiddle = "You asked fo rthe riddle again. You would be lucky"
+    RepeatRiddle = Audio.FORMAT_STRING.format("18_Epilogue.mp3")
     
     # Enter door intent
 
@@ -31,23 +31,23 @@ class Translator() :
    
     RightDoor = Audio.FORMAT_STRING.format("9_EnterBookRoom.mp3")
        
-    DoorError = "You cant go through"
+    DoorError = GenericError
 
     # Investigate chains intent
 
     InvestigateChains = "The chains seemed tightly bound. You see a lock"
 
-    AlreadyInvestigatedChains = "Not much more to see here "
+    AlreadyInvestigatedChains = GenericError
 
-    ChainsError = "Not the time to investigate chains"
+    ChainsError = GenericError
 
     # Use Key Intent
 
-    UseKey = "You unlocked the chain, now you have acess to the tome "
+    UseKey = Audio.FORMAT_STRING.format("12_UnlockBook.mp3")
 
-    UseKeyError_NoKey = "Key? What key?"
+    UseKeyError_NoKey = GenericError
 
-    UseKeyError_WrongRoom = "Nothing to unlock right now "
+    UseKeyError_WrongRoom = GenericError
 
     # Open book room intent 
 
@@ -55,7 +55,7 @@ class Translator() :
 
     OpenBookInLobby = Audio.FORMAT_STRING.format("12_UnlockBook.mp3")
 
-    OpenBook_ItsLocked = "The chains wrapped around it prevent you from opening the book"
+    OpenBook_ItsLocked = GenericError
 
     OpenBook_ThereNoBook = GenericError
 
@@ -65,9 +65,9 @@ class Translator() :
 
     # Leave room intent 
 
-    LeaveRoom = "You left the room back to the lobby"
+    LeaveMirrorRoom = "You left the room back to the lobby"
 
-    LeaveRoomError = "You cant escape this house"
+    LeaveRoomError = GenericError
     
     # Leave room intent 
     ThrowBook = Audio.FORMAT_STRING.format("14_ThrowBookAway.mp3")
@@ -94,7 +94,7 @@ class Translator() :
 
     Octopus_OpenWardrobeBeforeOctopusRelease = Audio.FORMAT_STRING.format("6_WardrobeOnBeachWithOctopus.mp3")
 
-    Octopus_OpenWardrobeToExitBeach = "Please can I have an audio file"
+    Octopus_OpenWardrobeToExitBeach = Audio.FORMAT_STRING.format("17_SearchForWardrobeOnBeach.mp3")
 
     Octopus_OpenAquarium = Audio.FORMAT_STRING.format("5_GrabOctopus.mp3")
 
