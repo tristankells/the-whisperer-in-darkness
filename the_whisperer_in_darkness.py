@@ -34,10 +34,10 @@ class TheWhispererInDarkness :
         # if door is a Door then use it to choose which door, else assume door is a string
         if (door is None):
             speech_text = Translator.DoorError
-        elif ((isinstance(door, str) and door.upper() in map(str.upper , ["first", "left", "one", "1"])) or door == 1):
+        elif ((isinstance(door, str) and door.upper() in map(val => val.upper(), ["first", "left", "one", "1"])) or door == 1):
             state_variables[TheWhispererInDarkness.ROOM] = Room.octopus
             speech_text =  Translator.LeftDoor
-        elif ((isinstance(door, str) and door.upper() in map(str.upper , ["second", "right", "two", "2"])) or door == 2):
+        elif ((isinstance(door, str) and door.upper() in map(val => val.upper(), ["second", "right", "two", "2"])) or door == 2):
             state_variables[TheWhispererInDarkness.ROOM] = Room.mirror
             speech_text =  Translator.RightDoor
         else:
