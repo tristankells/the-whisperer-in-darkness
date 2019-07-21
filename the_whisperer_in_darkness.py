@@ -223,7 +223,21 @@ class TheWhispererInDarkness :
         if(speech_text == None) :
             speech_text = Translator.DebugError
 
-        return Response(speech_text, state_variables) 
+        return Response(speech_text, state_variables)
+
+    @staticmethod
+    def help() :
+
+        speech_text = Translator.Help
+
+        return Response(speech_text) 
+
+    @staticmethod
+    def fallback() :
+
+        speech_text = Translator.GenericError
+        
+        return Response(speech_text) 
 
 
 

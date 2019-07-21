@@ -6,7 +6,7 @@ class Translator() :
     Test translator for the whisperer in darkness. Contains shorter, more
     debug focussed test phrases.abspath
     """
-    Launch = "welcome to the whisperer in darkness"
+    Launch = Audio.Intro
       
     # Enter door intent
 
@@ -63,7 +63,9 @@ class Translator() :
     # Reach in chest intent
     ReachInChest = "You reach through the grossness and grab a key"
 
-    # Generic errors
-    GenericError = "You tried that, but nothing happend"
+    # Generic mesages
+    GenericError = "You tried that, but nothing happens"
 
     DebugError = "THe logic is a bit off"
+
+    Help = "You ask for help, but you wont even help yourself"
