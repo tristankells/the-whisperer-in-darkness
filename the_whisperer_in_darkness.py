@@ -8,6 +8,13 @@ from slot_types import Room
 from response import Response
 
 class TheWhispererInDarkness :
+    ROOM = "Room"
+    HAS_KEY = "HasKey"
+    CHAINS_INVESTIGATED = "ChainsInvestigated"
+    BOOK_LOCKED = "BookLocked"
+    HAS_BOOK = "HasBook"
+    CHEST_OPENED = "ChestOpened"
+    MIRROR_BROKEN = "MirrorBroken"
 
     @staticmethod
     def handle_launch() :
@@ -23,16 +30,10 @@ class TheWhispererInDarkness :
         # if door is a Door then use it to choose which door, else assume door is a string
         if (door is None):
             speech_text = Translator.DoorError
-        elif (#(isinstance(door, Door) and door == Door.first) or
-            #(isinstance(door, LeftRight) and door == LeftRight.left) or
-            (isinstance(door, str) and door.upper() in map(str.upper , ["first", "left", "one", "1"]))
-            or door == 1):
+        elif ((isinstance(door, str) and door.upper() in map(str.upper , ["first", "left", "one", "1"])) or door == 1):
             state_variables["Room"] = Room.octopus
             speech_text =  Translator.LeftDoor
-        elif (#(isinstance(door, Door) and door == Door.second) or
-            #(isinstance(door, LeftRight) and door == LeftRight.right) or
-            (isinstance(door, str) and door.upper() in map(str.upper , ["second", "right", "two", "2"]))
-            or door == 2):
+        elif ((isinstance(door, str) and door.upper() in map(str.upper , ["second", "right", "two", "2"])) or door == 2):
             state_variables["Room"] = Room.mirror
             speech_text =  Translator.RightDoor
         else:
@@ -187,10 +188,14 @@ class TheWhispererInDarkness :
     
     @staticmethod
     def open_chest(state_variables) :
+        state_helper = StateHelper(lambda: state_variables)
+
+        room = Room(state_helper.get_state("Room"))
+
         speech_text = None
 
         #In the mirror room 
-        if(Room(state_variables["Room"]) == Room.mirror) :
+        if(room == Room.mirror) :
 
             #If the player does not already have the key
             if(state_variables['ChestOpened'] == False) :
@@ -202,7 +207,7 @@ class TheWhispererInDarkness :
                 speech_text = Translator.GenericError
 
         # If the player is in any room BUT the mirror room
-        elif(Room(state_variables["Room"]) != Room.mirror) :
+        elif(room != Room.mirror) :
             speech_text = Translator.GenericError
 
         #Final error catch
