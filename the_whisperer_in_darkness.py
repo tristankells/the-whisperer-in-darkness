@@ -21,6 +21,10 @@ class TheWhispererInDarkness :
         return Response(Translator.Launch, should_save_speech_text=False) 
     
     @staticmethod
+    def generic_error_response():
+        return Response(Translator.GenericError, should_save_speech_text=False)
+
+    @staticmethod
     def enter_door(door, state_variables):
         """ 
         TODO
@@ -265,6 +269,7 @@ class TheWhispererInDarkness :
 
 class OctopusRoom :
     IS_OCTOPUS_RELEASED = "IsOctopusReleased"
+    IS_AQUARIUM_OPEN = "IsAquariumOpen"
 
     @staticmethod
     def wardrobe(state_variables):
@@ -333,7 +338,34 @@ class OctopusRoom :
         response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
         return response
 
-    
+    @staticmethod
+    def aquarium(state_variables):
+        should_save_speech_text = True
+        # we use state helper since it automatically converts key errors into None
+        state_helper = StateHelper(lambda: state_variables)
+        is_aquarium_open = state_helper.get_state(OctopusRoom.IS_AQUARIUM_OPEN)
+        is_octopus_released = state_helper.get_state(OctopusRoom.IS_OCTOPUS_RELEASED)
+        room = state_helper.get_state(TheWhispererInDarkness.ROOM)
+        
+        in_octopus_room = room is not None and Room(room) == Room.octopus
+        if (not in_octopus_room):
+            should_save_speech_text=False
+            speech_text = "That shit ain't making no sense"
+
+        if (is_aquarium_open and is_octopus_released):
+            should_save_speech_text=True
+            speech_text = "The glass shatters into millions of tiny shards, the cuts sting your hands."
+        elif (is_aquarium_open and not is_octopus_released):
+            should_save_speech_text=False
+            speech_text = "You can't put the octopus back." + "\nYou hear waves crashing and the squawk of a seagull."
+        elif (not is_aquarium_open and not is_octopus_released):
+            speech_text = "You can't put the octopus back." + "\nYou hear waves crashing and the squawk of a seagull."
+        else:
+            speech_text = Translator.DebugError
+                    
+        response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
+        return response
+        
     
         
         

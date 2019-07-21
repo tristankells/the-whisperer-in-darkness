@@ -54,7 +54,8 @@ class AlexaHelper:
             return handler_input.attributes_manager.persistent_attributes[key]               
         except KeyError:
             return None
-
+    
+    #obsolete
     @staticmethod
     def get_state_helper(session_variables_delegate):
         return StateHelper(session_variables_delegate)
