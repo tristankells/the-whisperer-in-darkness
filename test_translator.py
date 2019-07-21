@@ -69,3 +69,5 @@ class Translator() :
     DebugError = "THe logic is a bit off"
 
     Help = "You ask for help, but you wont even help yourself"
+
+    EndGame = "You broke the mirror, freed the squid and now you win"

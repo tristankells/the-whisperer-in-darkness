@@ -122,10 +122,16 @@ class TheWhispererInDarkness :
             #If you have the book
             if(state_variables['HasBook'] == True ) :
 
-                #If the mirror has yet to be be broken -> Break mirror 
+                #If the mirror has yet to be be broken
                 if(state_variables['MirrorBroken'] == False) : 
-                    speech_text = Translator.OpenBookInLobby
-                    state_variables['MirrorBroken'] = True
+                    
+                    # If the octopus has been released when you break the glass, trigger game exit
+                    if(state_variables['OctopusReleased'] == True) :
+                        speech_text = Translator.OpenBookInLobby + Translator.EndGame
+
+                    elif(state_variables['OctopusReleased'] == False) :
+                        speech_text = Translator.OpenBookInLobby
+                        state_variables['MirrorBroken'] = True
 
                 #If the mirror is already broken
                 elif(state_variables['MirrorBroken'] == True):
@@ -149,7 +155,7 @@ class TheWhispererInDarkness :
     def leave_room(state_variables):
         speech_text = None
 
-        #If the plaery is in any room EXCEPT fro the lobby
+        #If the player is in any room EXCEPT for the lobby
         if(Room(state_variables["Room"]) != Room.lobby) :
             state_variables["Room"] = Room.lobby
             speech_text = Translator.LeaveRoom
@@ -167,8 +173,14 @@ class TheWhispererInDarkness :
     @staticmethod
     def throw_book(state_variables) :
         speech_text = None
-        #TODO : Insert code
-        speech_text = Translator.ThrowBook
+        
+        #if the player has the book
+        if(state_variables["HasBook"] == True) :
+            speech_text = Translator.ThrowBook
+        
+        #else if the player doe not have the book
+        elif(state_variables["HasBook"] == False) :
+            speech_text = Translator.GenericError
 
         #Final error catch
         if(speech_text == None) :
