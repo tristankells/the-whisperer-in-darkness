@@ -305,6 +305,21 @@ def leave_room_intent(handler_input):
     return handler_input.response_builder.response
 
 
+@sb.request_handler(can_handle_func=is_intent_name("RepeatRiddleIntent"))
+def repeat_riddle_handler(handler_input):
+
+    # reponse captured from game class. Contains speech text and transformed state variables.
+    response = TheWhispererInDarkness.repeat_riddle()   
+
+    # save speech text
+    speech_text = response.speech_text
+
+    reprompt = "Repeat yourself"
+
+    handler_input.response_builder.speak(speech_text).ask(reprompt)
+    return handler_input.response_builder.response
+
+
 
 
 
