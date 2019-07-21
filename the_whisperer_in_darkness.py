@@ -309,13 +309,13 @@ class OctopusRoom :
         in_octopus_room = room is not None and Room(room) == Room.octopus
         if (not in_octopus_room):
             should_save_speech_text=False
-            speech_text = "That shit ain't making no sense"
+            speech_text = Translator.GenericError
 
         if (is_octopus_released):
             should_save_speech_text=False
-            speech_text = "The Octopus has already been released." + "\nYou hear waves crashing and the squawk of a seagull."
+            speech_text = Translator.Octopus_OctopusAlreadyReleased + "\n" + Translator.Octopus_ExprienceTheBeach
         else:
-            speech_text = "The room turns into sand" + "\nYou hear waves crashing and the squawk of a seagull."
+            speech_text = Translator.Octopus_ReleaseOctopusBecomeBeach
             state_variables[OctopusRoom.IS_OCTOPUS_RELEASED]
         
         response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
@@ -332,14 +332,14 @@ class OctopusRoom :
         in_octopus_room = room is not None and Room(room) == Room.octopus
         if (not in_octopus_room):
             should_save_speech_text=False
-            speech_text = "That shit ain't making no sense"
+            speech_text = Translator.GenericError
 
         if (is_octopus_released):
             should_save_speech_text=False
-            speech_text = "The Octopus has already been released." + "\nYou hear waves crashing and the squawk of a seagull."
+            speech_text = Translator.Octopus_OctopusAlreadyReleased + "\n" + Translator.Octopus_ExprienceTheBeach
         else:
             #TODO can we add octopus specific audio here?
-            speech_text = "That isn't what you're supposed to do."
+            speech_text = Translator.WrongThingToDo
             state_variables[OctopusRoom.IS_OCTOPUS_RELEASED]
         
         response = Response(speech_text, state_variables=state_variables, should_save_speech_text=should_save_speech_text)
@@ -357,16 +357,15 @@ class OctopusRoom :
         in_octopus_room = room is not None and Room(room) == Room.octopus
         if (not in_octopus_room):
             should_save_speech_text=False
-            speech_text = "That shit ain't making no sense"
-
-        if (is_aquarium_open and is_octopus_released):
-            should_save_speech_text=True
-            speech_text = "The glass shatters into millions of tiny shards, the cuts sting your hands."
+            speech_text = Translator.GenericError
+        elif (is_aquarium_open and is_octopus_released):
+            speech_text = Translator.Octopus_AquariumShatters + "\n" + Translator.Octopus_ExprienceTheBeach
         elif (is_aquarium_open and not is_octopus_released):
-            should_save_speech_text=False
-            speech_text = "You can't put the octopus back." + "\nYou hear waves crashing and the squawk of a seagull."
+            state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] = True
+            speech_text = Translator.Octopus_ReturnTheOctopus + "\n" + Translator.Octopus_ExprienceTheBeach
         elif (not is_aquarium_open and not is_octopus_released):
-            speech_text = "You can't put the octopus back." + "\nYou hear waves crashing and the squawk of a seagull."
+            should_save_speech_text = False
+            speech_text = Translator.Octopus_NoReturningTheOctopus + "\n" + Translator.Octopus_ExprienceTheBeach
         else:
             speech_text = Translator.DebugError
                     

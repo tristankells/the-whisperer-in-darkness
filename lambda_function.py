@@ -33,6 +33,8 @@ def launch_request_handler(handler_input):
     """
     # type: (HandlerInput) -> Response
     state_variables = handler_input.attributes_manager.persistent_attributes
+    if state_variables is None:
+        state_variables = {}
     if not state_variables:
         state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
         state_variables[TheWhispererInDarkness.HAS_KEY] = False
@@ -41,6 +43,7 @@ def launch_request_handler(handler_input):
         state_variables[TheWhispererInDarkness.HAS_BOOK] = False
         state_variables[TheWhispererInDarkness.CHEST_OPENED] = False
         state_variables[TheWhispererInDarkness.MIRROR_BROKEN] = False
+        state_variables[OctopusRoom.IS_AQUARIUM_OPEN] = False
         state_variables[OctopusRoom.IS_OCTOPUS_RELEASED] = False
 
     handler_input.attributes_manager.session_attributes = state_variables
