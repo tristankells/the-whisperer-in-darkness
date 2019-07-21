@@ -41,10 +41,17 @@ class TheWhispererInDarkness :
     def investigate_chains(state_variables) :
         speech_text = None
 
-        if(state_variables["Room"] != Room.mirror) :
-           speech_text = Translator.ChainsError
+        if(Room(state_variables["Room"]) == Room.mirror) :
+            if(state_variables["ChainsInvestigated"] == False) :
+                speech_text = Translator.InvestigateChains
+                state_variables["ChainsInvestigated"] = True
+            else : 
+                speech_text = Translator.AlreadyInvestigatedChains
+
+        # Error catching   
         if(speech_text == None) :
-            Translator.InvestigateChains
+            speech_text = Translator.ChainsError
+
 
         return Response(speech_text, state_variables = state_variables)
 
@@ -64,8 +71,53 @@ class TheWhispererInDarkness :
     @staticmethod
     def open_book(state_variables):
         speech_text = None
-        #TODO : Insert code
-        speech_text = Translator.OpenBook
+
+        #In the mirror room 
+        if(Room(state_variables["Room"]) == Room.mirror) :
+
+            #If book is no longer in chains
+            if(state_variables['BookLocked'] == False) :
+                
+                #If you dont have the book yet / havent tried to open it yet
+                if(state_variables['HasBook'] == False) :
+                    speech_text = Translator.OpenBookInMirrorRoom
+                    state_variables['HasBook'] = True
+
+                #If you have already opened the book in the mirror room
+                elif(state_variables['HasBook'] == True) :
+                    speech_text = Translator.OpenBook_NotNeeded
+
+            #If book is still in chains
+            elif(state_variables['BookLocked'] == True) :
+                speech_text = Translator.OpenBook_ItsLocked
+
+        #In the lobby room 
+        elif(Room(state_variables["Room"]) == Room.lobby) :
+
+            #If you have the book
+            if(state_variables['HasBook'] == True ) :
+
+                #If the mirror has yet to be be broken -> Break mirror 
+                if(state_variables['MirrorBroken'] == False) : 
+                    speech_text = Translator.OpenBookInLobby
+                    state_variables['MirrorBroken'] = True
+
+                #If the mirror is already broken
+                elif(state_variables['MirrorBroken'] == True):
+                    speech_text = Translator.OpenBook_NotNeeded
+                
+            #If you DON'T have the book
+            elif(state_variables['HasBook'] == False):
+                speech_text = Translator.GenericError
+
+        #In the octopus room 
+        elif(Room(state_variables["Room"]) == Room.octopus) :
+           speech_text = Translator.GenericError
+
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
+        
         return Response(speech_text, state_variables = state_variables) 
 
     @staticmethod
@@ -82,7 +134,67 @@ class TheWhispererInDarkness :
         #TODO : Insert code
         speech_text = Translator.ThrowBook
 
+<<<<<<< HEAD
         return Response(speech_text, state_variables = state_variables) 
+=======
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
+
+        return Response(speech_text, state_variables) 
+    
+    @staticmethod
+    def open_chest(state_variables) :
+        speech_text = None
+
+        #In the mirror room 
+        if(Room(state_variables["Room"]) == Room.mirror) :
+
+            #If the player does not already have the key
+            if(state_variables['ChestOpened'] == False) :
+                state_variables["ChestOpened"] = True
+                speech_text = Translator.OpenChest
+
+            #if the player already has the key
+            elif(state_variables['ChestOpened'] == True) :
+                speech_text = Translator.GenericError
+
+        # If the player is in any room BUT the mirror room
+        elif(Room(state_variables["Room"]) != Room.mirror) :
+            speech_text = Translator.GenericError
+
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
+
+        return Response(speech_text, state_variables) 
+
+    @staticmethod
+    def reach_in_chest(state_variables) :
+        speech_text = None
+
+        #In the mirror room 
+        if(Room(state_variables["Room"]) == Room.mirror) :
+
+            # And the chest is opened / been investigated
+            if(state_variables["ChestOpened"] == True) :
+                state_variables["HasKey"] = True
+                speech_text = Translator.ReachInChest
+
+            # The chest hasn not been opened yet
+            elif(state_variables["ChestOpened"] == False) :
+                speech_text = Translator.GenericError
+
+        # If the player is in any room BUT the mirror room
+        elif(Room(state_variables["Room"]) != Room.mirror) :
+            speech_text = Translator.GenericError
+        
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
+
+        return Response(speech_text, state_variables) 
+>>>>>>> a74cb0b9153c8dd765b865b9309d7b817b3b01ad
 
 
 
