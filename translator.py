@@ -13,7 +13,7 @@ class Translator() :
     Launch = Audio.Intro
       
     # Generic mesages
-    GenericError = "You tried that, but nothing happens"
+    GenericError = Audio.FORMAT_STRING.format("19_Error.mp3")
 
     WrongThingToDo = GenericError
 
@@ -21,9 +21,9 @@ class Translator() :
 
     Help = GenericError
 
-    EndGame = "You broke the mirror, freed the squid and now you win"
+    EndGame = Audio.FORMAT_STRING.format("18_Epilogue.mp3")
 
-    RepeatRiddle = Audio.FORMAT_STRING.format("18_Epilogue.mp3")
+    RepeatRiddle = GenericError
     
     # Enter door intent
 
@@ -43,7 +43,7 @@ class Translator() :
 
     # Use Key Intent
 
-    UseKey = Audio.FORMAT_STRING.format("12_UnlockBook.mp3")
+    UseKey = Audio.FORMAT_STRING.format("12_UnlockBook.mp3") #TODO why is this same as OpenBookInLobby
 
     UseKeyError_NoKey = GenericError
 

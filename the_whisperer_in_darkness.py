@@ -297,7 +297,10 @@ class OctopusRoom :
             speech_text = Translator.Octopus_OpenWardrobeBeforeOctopusRelease
         elif (is_aquarium_open and is_octopus_released):
             state_variables[TheWhispererInDarkness.ROOM] = Room.lobby
-            speech_text = Translator.Octopus_OpenWardrobeToExitBeach
+            if (True):
+                speech_text = Translator.Octopus_OpenWardrobeToExitBeach
+            else:
+                speech_text = Translator.Octopus_OpenWardrobeToExitBeach + Translator.EndGame
         else:
             speech_text = Translator.DebugError
             
