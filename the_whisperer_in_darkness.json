@@ -32,7 +32,7 @@
                         },
                         {
                             "name": "DoorOrder",
-                            "type": "ORDER"
+                            "type": "Door"
                         },
                         {
                             "name": "LeftRight",
@@ -120,11 +120,79 @@
                         "Go to wardrobe",
                         "Open the wardrboe"
                     ]
+                },
+                {
+                    "name": "OpenChestIntent",
+                    "slots": [],
+                    "samples": [
+                        "open the container",
+                        "look in the chest",
+                        "look in the container",
+                        "investigate the chest",
+                        "open the chest",
+                        "i open the chest"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.RepeatIntent",
+                    "samples": []
+                },
+                {
+                    "name": "Octopus_OctopusIntent",
+                    "slots": [],
+                    "samples": [
+                        "set the octopus free",
+                        "throw the octopus into the ocean",
+                        "Release the octopus"
+                    ]
+                },
+                {
+                    "name": "Octopus_BadOctopusIntent",
+                    "slots": [],
+                    "samples": [
+                        "keep the octopus",
+                        "put the octopus back",
+                        "lock the octopus in the wardrobe",
+                        "kill the octopus",
+                        "crush the octopus"
+                    ]
+                },
+                {
+                    "name": "Octopus_AquariumIntent",
+                    "slots": [],
+                    "samples": [
+                        "look in the tank",
+                        "examine the fish tank",
+                        "look at the aquarium",
+                        "examine the glass box",
+                        "look in the glass box",
+                        "Is it an aquarium",
+                        "Reach into the glass container",
+                        "Open the glass"
+                    ]
+                },
+                {
+                    "name": "OpenBoxIntent",
+                    "slots": [],
+                    "samples": [
+                        "reach for the box",
+                        "open the box",
+                        "examine the box",
+                        "look in the box"
+                    ]
                 }
             ],
             "types": [
                 {
-                    "name": "ORDER",
+                    "name": "Door",
                     "values": [
                         {
                             "name": {
