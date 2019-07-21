@@ -1,0 +1,159 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "the whisperer in darkness",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "EnterDoorIntent",
+                    "slots": [
+                        {
+                            "name": "DoorNumber",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "DoorOrder",
+                            "type": "ORDER"
+                        },
+                        {
+                            "name": "LeftRight",
+                            "type": "LEFTRIGHT"
+                        }
+                    ],
+                    "samples": [
+                        "{LeftRight} door",
+                        "Go through the {LeftRight} door",
+                        "Go though the door on the {LeftRight}",
+                        "{DoorOrder} door",
+                        "i want to go through the {DoorOrder} door",
+                        "go through the {DoorOrder} door",
+                        "go though door number {DoorNumber}",
+                        "door {DoorNumber}",
+                        "open door {DoorNumber}"
+                    ]
+                },
+                {
+                    "name": "MemoryCheckIntent",
+                    "slots": [],
+                    "samples": [
+                        "memory check"
+                    ]
+                },
+                {
+                    "name": "InvestigateChainsIntent",
+                    "slots": [],
+                    "samples": [
+                        "pickup the chains",
+                        "touch the chains",
+                        "look at the chains",
+                        "checkout out the chains",
+                        "investigate chains"
+                    ]
+                },
+                {
+                    "name": "UseKeyIntent",
+                    "slots": [],
+                    "samples": [
+                        "key",
+                        "i unlock the lock",
+                        "insert the key into the lock",
+                        "insert the key",
+                        "i place the key in the lock",
+                        "use key"
+                    ]
+                },
+                {
+                    "name": "OpenBookIntent",
+                    "slots": [],
+                    "samples": [
+                        "i want to open the book",
+                        "book open",
+                        "open the book"
+                    ]
+                },
+                {
+                    "name": "LeaveRoomIntent",
+                    "slots": [],
+                    "samples": [
+                        "return to the entrance",
+                        "return to the lobby",
+                        "exit the room",
+                        "leave the room",
+                        "i leave the room"
+                    ]
+                },
+                {
+                    "name": "ThrowBookIntent",
+                    "slots": [],
+                    "samples": [
+                        "get rid of book",
+                        "chuck book",
+                        "toss book",
+                        "throw book away"
+                    ]
+                },
+                {
+                    "name": "Octopus_WardrobeIntent",
+                    "slots": [],
+                    "samples": [
+                        "more wardrobe",
+                        "see if the wadrobe can be opened",
+                        "Go to wardrobe",
+                        "Open the wardrboe"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "ORDER",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "second"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "first"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "LEFTRIGHT",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "right"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "left"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
