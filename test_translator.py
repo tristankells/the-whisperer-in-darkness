@@ -50,7 +50,7 @@ class Translator() :
 
     LeaveRoom = "You left the room back to the lobby"
 
-    LeaveRoomError = "THere is no room to leave"
+    LeaveRoomError = "You cant escape this house"
     
     # Leave room intent 
     ThrowBook = "You try to toss it, but you never seem to be able to muster the strength to get rid of it"

@@ -142,8 +142,19 @@ class TheWhispererInDarkness :
     @staticmethod
     def leave_room(state_variables):
         speech_text = None
-        #TODO : Insert code
-        speech_text =  Translator.LeaveRoom
+
+        #If the plaery is in any room EXCEPT fro the lobby
+        if(Room(state_variables["Room"]) != Room.lobby) :
+            state_variables["Room"] = Room.lobby
+            speech_text = Translator.LeaveRoom
+        
+        #If the player is in the lobby
+        elif(Room(state_variables["Room"]) == Room.lobby) :
+            speech_text =  Translator.LeaveRoomError
+
+        #Final error catch
+        if(speech_text == None) :
+            speech_text = Translator.DebugError
 
         return Response(speech_text, state_variables = state_variables)
 
