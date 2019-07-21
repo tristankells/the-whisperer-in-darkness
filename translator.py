@@ -3,10 +3,13 @@ from audio import Audio
 
 class Translator() :
     """
-    Test translator for the whisperer in darkness. Contains shorter, more
-    debug focussed test phrases.abspath
+    Final translator for the whisperer in darkness. Contains links to all audio 
+    files when applicable
     """
-    Launch = "Welcome to whisperer in the darkness"
+    
+    #TODO 
+
+    Launch = Audio.Intro
       
     # Enter door intent
 
