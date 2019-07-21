@@ -66,6 +66,8 @@ class Translator() :
     # Generic mesages
     GenericError = "You tried that, but nothing happens"
 
+    WrongThingToDo = "That's the wrong thing to do"
+
     DebugError = "The logic is hecka funked"
 
     Help = "You ask for help, but you wont even help yourself"
@@ -76,4 +78,14 @@ class Translator() :
     
     # Octopus messages
 
-    #TODO
+    Octopus_OctopusAlreadyReleased = "The Octopus has already been released."
+
+    Octopus_ExprienceTheBeach = "You hear waves crashing and the squawk of a seagull."
+
+    Octopus_ReleaseOctopusBecomeBeach = "Sand appears at your feat, you hear a sea breeze and waves crashing."
+
+    Octopus_NoReturningTheOctopus = "You can't put the octopus back."
+
+    Octopus_ReturnTheOctopus = "A demonic voice congratulate you on returning the octopus."
+
+    Octopus_AquariumShatters = "The glass shatters into millions of tiny shards, the cuts sting your hands."

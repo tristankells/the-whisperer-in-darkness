@@ -6,16 +6,30 @@ class Translator() :
     Final translator for the whisperer in darkness. Contains links to all audio 
     files when applicable
     """
-    
-    #TODO 
+    #TODO this whole file needs to use audio sources not plain text
+
+    # Audio.FORMAT_STRING.format(".mp3")
 
     Launch = Audio.Intro
       
+    # Generic mesages
+    GenericError = "You tried that, but nothing happens"
+
+    WrongThingToDo = "That's the wrong thing to do"
+
+    DebugError = "The logic is hecka funked"
+
+    Help = "You ask for help, but you wont even help yourself"
+
+    EndGame = "You broke the mirror, freed the squid and now you win"
+
+    RepeatRiddle = "You asked fo rthe riddle again. You would be lucky"
+    
     # Enter door intent
 
-    LeftDoor = "you enter the door on your left"
+    LeftDoor = Audio.FORMAT_STRING.format("3_OpenDoorToOctopusRoom.mp3")
    
-    RightDoor = "you enter the door on your right"
+    RightDoor = Audio.FORMAT_STRING.format("9_EnterBookRoom.mp3")
        
     DoorError = "You cant go through"
 
@@ -37,17 +51,17 @@ class Translator() :
 
     # Open book room intent 
 
-    OpenBookInMirrorRoom = "You open the book. It screams at you"
+    OpenBookInMirrorRoom = Audio.FORMAT_STRING.format("13_OpenBookInBookRoom.mp3")
 
-    OpenBookInLobby = "It breaks the mirror into a million piece "
+    OpenBookInLobby = Audio.FORMAT_STRING.format("12_UnlockBook.mp3")
 
     OpenBook_ItsLocked = "The chains wrapped around it prevent you from opening the book"
 
-    OpenBook_ThereNoBook = "I cant see no book"
+    OpenBook_ThereNoBook = GenericError
 
-    OpenBookError = "Book error message"
+    OpenBookError = GenericError
 
-    OpenBook_NotNeeded = "Nothing more happens, except you increased descent in insanity"
+    OpenBook_NotNeeded = GenericError
 
     # Leave room intent 
 
@@ -56,27 +70,32 @@ class Translator() :
     LeaveRoomError = "You cant escape this house"
     
     # Leave room intent 
-    ThrowBook = "You try to toss it, but you never seem to be able to muster the strength to get rid of it"
+    ThrowBook = Audio.FORMAT_STRING.format("14_ThrowBookAway.mp3")
 
-    ThrowBookError = "You try to throw it, but you dont have it"
+    ThrowBookError = GenericError
 
     # Open chest intent
-    OpenChest = Audio.InvestigateChest
+    OpenChest = Audio.FORMAT_STRING.format("10_Investigate_Chest.mp3")
 
     # Reach in chest intent
-    ReachInChest = "You reach through the grossness and grab a key"
+    ReachInChest = Audio.FORMAT_STRING.format("11_HandInBugChest.mp3")
 
-    # Generic mesages
-    GenericError = "You tried that, but nothing happens"
-
-    DebugError = "The logic is hecka funked"
-
-    Help = "You ask for help, but you wont even help yourself"
-
-    EndGame = "You broke the mirror, freed the squid and now you win"
-
-    RepeatRiddle = "You asked fo rthe riddle again. You would be lucky"
-    
     # Octopus messages
 
-    #TODO
+    Octopus_OctopusAlreadyReleased = GenericError
+
+    Octopus_ReleaseOctopusBecomeBeach = Audio.FORMAT_STRING.format("7_ReleaseOctopus")
+
+    Octopus_NoReturningTheOctopus = GenericError
+
+    Octopus_AquariumShatters = GenericError
+
+    Octopus_OpenWardrobeBeforeAquarium = Audio.FORMAT_STRING.format("4_OpenWardrobeWhenFirstInRoom.mp3")
+
+    Octopus_OpenWardrobeBeforeOctopusRelease = Audio.FORMAT_STRING.format("6_WardrobeOnBeachWithOctopus.mp3")
+
+    Octopus_OpenWardrobeToExitBeach = "Please can I have an audio file"
+
+    Octopus_OpenAquarium = Audio.FORMAT_STRING.format("5_GrabOctopus.mp3")
+
+    Octopus_SearchBeach = Audio.FORMAT_STRING.format("8_SearchBeach.mp3")
