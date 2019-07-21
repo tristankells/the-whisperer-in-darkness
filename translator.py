@@ -1,5 +1,6 @@
 from os.path import abspath
 from audio import Audio
+import test_translator
 
 class Translator() :
     """
@@ -19,11 +20,11 @@ class Translator() :
 
     DebugError = "Ok this ones on me I've made a mistake"
 
-    Help = GenericError
+    Help = test_translator.Translator.Help
 
     EndGame = Audio.FORMAT_STRING.format("18_Epilogue.mp3")
 
-    RepeatRiddle = GenericError
+    RepeatRiddle = test_translator.Translator.RepeatRiddle
     
     # Enter door intent
 
@@ -39,7 +40,7 @@ class Translator() :
 
     AlreadyInvestigatedChains = GenericError
 
-    ChainsError = GenericError
+    ChainsError = test_translator.Translator.ChainsError
 
     # Use Key Intent
 
