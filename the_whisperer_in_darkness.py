@@ -1,4 +1,4 @@
-from test_translator import Translator
+from translator import Translator
 # from slot_types import Door
 # from slot_types import LeftRight
 from audio import Audio
